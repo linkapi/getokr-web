@@ -1,4 +1,4 @@
-#GetOkr-WEB
+# GetOkr-WEB
 
 GetOkr-WEB is the Front-end part of GetOkr, an OKR software used by LinkApi, FCamara and HashTrack.
 
@@ -6,16 +6,16 @@ GetOkr-WEB is the Front-end part of GetOkr, an OKR software used by LinkApi, FCa
 * Framework - AngularJS
 * Module Bundler - Webpack
 
-##Requirements
+## Requirements
 * GetOkr-API https://github.com/linkapi/getokr-api.git
 
-##Installation
+## Installation
 ```bash
 npm install
 npm run dev
 ```
 
-##Structure
+## Structure
 ```
 ├── src               # Source code
 │   ├── app           # Application
@@ -24,9 +24,9 @@ npm run dev
 │   └── release       # Production bundle
 ```
 
-##Usage
+## Usage
 * `npm run dev`  Start server on dev mode with webpack
 * `npm run build` Generate Production bundle
 
-##License
+## License
 MIT

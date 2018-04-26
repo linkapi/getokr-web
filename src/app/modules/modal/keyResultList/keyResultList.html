@@ -1,0 +1,95 @@
+<div class="color-line">
+</div>
+
+<div class="modal-header">
+  <!-- <h5>Objetivo</h5> -->
+  <h4 class="modal-title">{{vm.items.name}}</h4>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-12">
+      <div class="modal-listagem">
+        <div class="box-checkin" ng-repeat="keyResult in vm.items.keyResults" ng-if="keyResult._id.isActive">
+
+          <div class="box-status-keyresult">
+            <div class="initial-owner-checkIn m-l-lg ng-scope" uib-tooltip="{{keyResult._id.owner.firstName}} {{keyResult._id.owner.lastName}}"
+              tooltip-placement="top">
+              {{vm.getInitials(keyResult._id.owner)}}
+            </div>
+            <h4>{{keyResult._id.name}}</h4>
+          </div>
+          <div class="box-targets-keyresult">
+            <div class="form-group">
+              <label ng-if="keyResult._id.type=='number'">Realizado</label>
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='money' && keyResult._id.criteria=='atLeast'" ng-class="{'form-control input-md': keyResult._id.currentValue,'form-control red input-md' : keyResult._id.currentValue==undefined}"
+                ng-model="keyResult._id.currentValue" ui-money-mask tabindex="6" ng-disabled="true">
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='money' && keyResult._id.criteria=='atMost'" ng-class="{'form-control input-md': keyResult._id.currentValue,'form-control red input-md' : keyResult._id.currentValue==undefined}"
+                ng-model="keyResult._id.currentValue" ui-money-mask tabindex="6" ng-disabled="true">
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='unitary' && keyResult._id.criteria=='atLeast'" ng-class="{'form-control input-md': keyResult._id.currentValue,'form-control red input-md' : keyResult._id.currentValue==undefined}"
+                ng-model="keyResult._id.currentValue" type="number" step="0.00" tabindex="6" ng-disabled="true">
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='unitary' && keyResult._id.criteria=='atMost'" ng-class="{'form-control input-md': keyResult._id.currentValue,'form-control red input-md' : keyResult._id.currentValue==undefined}"
+                ng-model="keyResult._id.currentValue" type="number" step="0.00" tabindex="6" ng-disabled="true">
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='percent' && keyResult._id.criteria=='atLeast'" ng-class="{'form-control input-md': keyResult._id.currentValue,'form-control red input-md' : keyResult._id.currentValue==undefined}"
+                ng-model="keyResult._id.currentValue" ui-percentage-mask="0" tabindex="6" ng-disabled="true">
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='percent' && keyResult._id.criteria=='atMost'" ng-class="{'form-control input-md': keyResult._id.currentValue,'form-control red input-md' : keyResult._id.currentValue==undefined}"
+                ng-model="keyResult._id.currentValue" ui-percentage-mask="0" tabindex="6" ng-disabled="true">
+
+              <div class="box-checkbox m-t-xs" ng-if="keyResult._id.type=='boolean'">
+                <div class="incomplete">
+                  <div class="icheckbox_square-green hover" ng-class="{'checked' : !keyResult._id.finished}">
+                    <input type="checkbox" class="i-checks check-class-1" ng-disabled="true">
+                    <ins class="iCheck-helpercheck-class-2"></ins>
+                  </div>
+                  <span>Não concluído</span>
+                </div>
+                <div class="complete">
+                  <div class="icheckbox_square-green not-allowed" ng-class="{'checked' : keyResult._id.finished}" ng-disabled="true">
+                    <input type="checkbox" class="i-checks check-class-1" ng-disabled="true">
+                    <ins class="iCheck-helper check-class-2"></ins>
+                  </div>
+                  <span>Concluído</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label ng-if="keyResult._id.type=='number'">Alvo</label>
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='money' && keyResult._id.criteria=='atLeast'" ng-class="{'form-control input-md': keyResult._id.targetValue,'form-control red input-md' : keyResult._id.targetValue==undefined}"
+                ng-model="keyResult._id.targetValue" ui-money-mask tabindex="6" ng-disabled="true">
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='money' && keyResult._id.criteria=='atMost'" ng-class="{'form-control input-md': keyResult._id.targetValue,'form-control red input-md' : keyResult._id.targetValue==undefined}"
+                ng-model="keyResult._id.targetValue" ui-money-mask tabindex="6" ng-disabled="true">
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='unitary' && keyResult._id.criteria=='atLeast'" ng-class="{'form-control input-md': keyResult._id.targetValue,'form-control red input-md' : keyResult._id.targetValue==undefined}"
+                ng-model="keyResult._id.targetValue" type="number" step="0.00" tabindex="6" ng-disabled="true">
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='unitary' && keyResult._id.criteria=='atMost'" ng-class="{'form-control input-md': keyResult._id.targetValue,'form-control red input-md' : keyResult._id.targetValue==undefined}"
+                ng-model="keyResult._id.targetValue" type="number" step="0.00" tabindex="6" ng-disabled="true">
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='percent' && keyResult._id.criteria=='atLeast'" ng-class="{'form-control input-md': keyResult._id.targetValue,'form-control red input-md' : keyResult._id.targetValue==undefined}"
+                ng-model="keyResult._id.targetValue" ui-percentage-mask="0" tabindex="6" ng-disabled="true">
+              <input ng-if="keyResult._id.type=='number' && keyResult._id.format=='percent' && keyResult._id.criteria=='atMost'" ng-class="{'form-control input-md': keyResult._id.targetValue,'form-control red input-md' : keyResult._id.targetValue==undefined}"
+                ng-model="keyResult._id.targetValue" ui-percentage-mask="0" tabindex="6" ng-disabled="true">
+            </div>
+            <div class="form-group moods-keyResult cursor-auto" ng-class="{booleankey:keyResult._id.type=='boolean'}">
+              <label>Confiança
+                <i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Selecione quanto de confiança você possui para concluir este resultado chave"
+                  tooltip-placement="right" tooltip-append-to-body=true></i>
+              </label>
+              <a ng-class="{active:keyResult._id.trustLevel=='high'}">
+                <i class="fa fa-thumbs-o-up" aria-hidden="true" style="color:#62E856;" uib-tooltip="Alta" tooltip-placement="top" tooltip-append-to-body=true></i>
+              </a>
+              <a ng-class="{active:keyResult._id.trustLevel=='normal'}">
+                <i class="fa fa-hand-paper-o" aria-hidden="true" style="color:#FCBE49;" uib-tooltip="Média" tooltip-placement="top" tooltip-append-to-body=true></i>
+              </a>
+              <a ng-class="{active:keyResult._id.trustLevel=='low'}">
+                <i class="fa fa-thumbs-o-down" aria-hidden="true" style="color:#FA3628;" uib-tooltip="Baixa" tooltip-placement="top" tooltip-append-to-body=true></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-link" ng-click="vm.closeModal()">Fechar</button>
+</div>
+</div>

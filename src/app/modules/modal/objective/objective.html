@@ -1,0 +1,329 @@
+<div class="modal-content">
+  <div class="color-line"></div>
+  <div class="modal-header text-center">
+    <h4 class="modal-title" ng-if="vm.hierarchy != 'main'">Objetivo</h4>
+    <h4 class="modal-title" ng-if="vm.hierarchy == 'main'">Objetivo estratégico</h4>
+    <span class="m-l-xs pull-right" ng-if="vm.objective.public && vm.hierarchy != 'main'">Público</span>
+    <span class="m-l-xs pull-right" ng-if="!vm.objective.public && vm.hierarchy != 'main'">Privado</span>
+    <div class="onoffswitch pull-right" ng-if="vm.hierarchy != 'main'">
+      <input type="checkbox" name="yourName" ng-click="vm.objective.public = !vm.objective.public" class="onoffswitch-checkbox"
+        ng-checked="vm.objective.public" id="permissionSwitch">
+      <label class="onoffswitch-label" for="permissionSwitch">
+        <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+      </label>
+    </div>
+  </div>
+  <div class="modal-body" ng-class="{'m-b-lg':vm.hierarchy=='main'}">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="key-message pull-right m-b-xs">
+          <small>* Campos obrigatórios</small>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="Name">* Título do objetivo</label>
+      <input type="text" class="form-control" placeholder="Informe um título para o objetivo" ng-model="vm.objective.name" placeholder="{{vm.title}}">
+    </div>
+    <div class="form-group">
+      <label for="comment">Descrição do objetivo</label>
+      <textarea style="resize:none;" placeholder="Digite aqui sua descrição" class="form-control" ng-model="vm.objective.description"
+        placeholder="{{vm.description}}"></textarea>
+    </div>
+    <div class="form-group box-tags-new-objective col-md-12 m-l-n">
+      <label ng-if="vm.tagsForSelection.length > 0">Tags</label>
+      <multiselect class="tag-component appointment-tag-component m-t-n-sm" style="font-size: 13px" ng-model="vm.objective.tags"
+        options="vm.tagsForSelection" show-search="true" ng-class="{'has-tags': vm.objective.tags.length > 0}" reset-search-input="true"
+        uib-dropdown-toggle tooltip-placement="right" tooltip-append-to-body=true uib-tooltip="{{vm.objective.tags.length > 0 ? vm.objective.tags.join(', ') : 'Clique aqui para selecionar uma ou mais tags'}}"
+        ng-init="vm.setupTag()" ng-if="vm.tagsForSelection.length > 0" tabindex="8"></multiselect>
+    </div>
+
+    <div class="form-group pull-left" ng-if="vm.hierarchy != 'main'">
+      <label for="Name">Objetivo vinculado</label>
+      <div class="input-group ui-select-modal-objective">
+        <span class="input-group-addon">
+          <i class="glyphicon glyphicon-record"></i>
+        </span>
+
+        <ui-select theme="bootstrap" ng-model="vm.objective.mainObjective" search-enabled="true" ng-if="!vm.objective._id">
+          <ui-select-match placeholder=" Selecione / Pesquise um objetivo para vincular">
+            <div>
+              {{$select.selected.name}}
+            </div>
+          </ui-select-match>
+          <ui-select-choices repeat="mainObjective in vm.mainObjectives | orderBy: 'name' | filter: {name: $select.search} " maxlength="10">
+            <div ng-show="mainObjective.hierarchy == 'main'">
+              <div class="">
+                <span class="ellipsis">
+                  <i class="fa fa-building-o fa-fw" aria-hidden="true"></i>
+                  {{mainObjective.name}}
+                </span>
+              </div>
+              <div class="tags-box pull-right m-t-na" ng-show="mainObjective.tags.length>0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags has-tags-report"></i>
+                </span>
+              </div>
+              <div class="tags-box pull-right m-t-na" ng-show="mainObjective.tags.length==0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags"></i>
+                </span>
+              </div>
+            </div>
+            <div ng-show="mainObjective.hierarchy != 'main'">
+              <span class="initial-owner-combo pull-left" uib-tooltip="{{mainObjective.owner.firstName}} {{mainObjective.owner.lastName}}"
+                tooltip-placement="right">
+                {{vm.getInitials(mainObjective.owner.firstName,mainObjective.owner.lastName)}}
+              </span> {{mainObjective.name}}
+              <div class="tags-box pull-right" ng-show="mainObjective.tags.length>0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags has-tags-report"></i>
+                </span>
+              </div>
+              <div class="tags-box pull-right" ng-show="mainObjective.tags.length==0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags"></i>
+                </span>
+              </div>
+            </div>
+          </ui-select-choices>
+        </ui-select>
+
+
+        <ui-select theme="bootstrap" ng-model="vm.objective.mainObjective" search-enabled="true" ng-if="vm.objective._id && !vm.objective.mainObjective">
+          <ui-select-match placeholder="Selecione / Pesquise um objetivo para vincular">
+            <div>
+              {{vm.objective.mainObjective.name}}
+            </div>
+          </ui-select-match>
+          <ui-select-choices repeat="mainObjective in vm.mainObjectives | orderBy: 'name' | filter: {name: $select.search}" maxlength="10">
+            <div ng-show="mainObjective.hierarchy == 'main'">
+              <div class="">
+
+                <span class="ellipsis">
+                  <i class="fa fa-building-o fa-fw" aria-hidden="true"></i>
+                  {{mainObjective.name}}
+                </span>
+              </div>
+              <div class="tags-box pull-right m-t-na" ng-show="mainObjective.tags.length>0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags has-tags-report"></i>
+                </span>
+              </div>
+              <div class="tags-box pull-right m-t-na" ng-show="mainObjective.tags.length==0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags"></i>
+                </span>
+              </div>
+            </div>
+            <div ng-show="mainObjective.hierarchy != 'main'">
+              <span class="initial-owner-combo pull-left" uib-tooltip="{{mainObjective.owner.firstName}} {{mainObjective.owner.lastName}}"
+                tooltip-placement="right">
+                {{vm.getInitials(mainObjective.owner.firstName,mainObjective.owner.lastName)}}
+              </span> {{mainObjective.name}}
+              <div class="tags-box pull-right" ng-show="mainObjective.tags.length>0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags has-tags-report"></i>
+                </span>
+              </div>
+              <div class="tags-box pull-right" ng-show="mainObjective.tags.length==0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags"></i>
+                </span>
+              </div>
+            </div>
+          </ui-select-choices>
+        </ui-select>
+
+
+        <ui-select theme="bootstrap" ng-model="vm.objective.mainObjective" search-enabled="true" ng-if="vm.objective._id && vm.objective.mainObjective">
+          <ui-select-match placeholder="Selecione / Pesquise um objetivo para vincular">
+            <div>
+              {{vm.objective.mainObjective.name}}
+            </div>
+          </ui-select-match>
+          <ui-select-choices repeat="mainObjective in vm.mainObjectives | orderBy: 'name' | filter: {name: $select.search}" maxlength="10">
+            <div ng-show="mainObjective.hierarchy == 'main'">
+              <span class="ellipsis">
+                <i class="fa fa-building-o fa-fw" aria-hidden="true"></i>
+                {{mainObjective.name}}
+              </span>
+              <div class="tags-box pull-right m-t-na" ng-show="mainObjective.tags.length>0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags has-tags-report"></i>
+                </span>
+              </div>
+              <div class="tags-box pull-right m-t-na" ng-show="mainObjective.tags.length==0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags"></i>
+                </span>
+              </div>
+            </div>
+            <div ng-show="mainObjective.hierarchy != 'main'">
+              <span class="initial-owner-combo pull-left" uib-tooltip="{{mainObjective.owner.firstName}} {{mainObjective.owner.lastName}}"
+                tooltip-placement="right">
+                {{vm.getInitials(mainObjective.owner.firstName,mainObjective.owner.lastName)}}
+              </span> {{mainObjective.name}}
+              <div class="tags-box pull-right" ng-show="mainObjective.tags.length>0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags has-tags-report"></i>
+                </span>
+              </div>
+              <div class="tags-box pull-right" ng-show="mainObjective.tags.length==0">
+                <span uib-tooltip="{{mainObjective.tags.join(', ')}}" tooltip-placement="left">
+                  <i class="fa fa-tags"></i>
+                </span>
+              </div>
+            </div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+
+      <div class="col-md-12 m-l-n teamObjective">
+        <label for="Name" ng-if="vm.hierarchy != 'main'">Time</label>
+      </div>
+      <div class="input-group ui-select-modal-objective">
+        <span class="input-group-addon">
+          <i class="fa fa-users"></i>
+        </span>
+
+        <ui-select theme="bootstrap" ng-model="vm.objective.team" search-enabled="true" ng-if="!vm.objective._id">
+          <ui-select-match placeholder=" Selecione / Pesquise um time para vincular">
+            <div>
+              {{$select.selected.name}}
+            </div>
+          </ui-select-match>
+          <ui-select-choices ng-click="vm.selectTeam(vm.objective.team)" repeat="team in vm.teams | orderBy: 'name' | filter: {name: $select.search} "
+            maxlength="10">
+            <div ng-bind-html="team.name | highlight: $select.search">
+            </div>
+          </ui-select-choices>
+        </ui-select>
+
+        <ui-select theme="bootstrap" ng-model="vm.objective.team" search-enabled="true" ng-if="vm.objective._id && !vm.objective.mainObjective">
+          <ui-select-match placeholder=" Selecione / Pesquise um time para vincular">
+            <div>
+              {{vm.objective.team.name}}
+            </div>
+          </ui-select-match>
+          <ui-select-choices ng-click="vm.selectTeam(vm.objective.team)" repeat="team in vm.teams | orderBy: 'name' | filter: {name: $select.search} "
+            maxlength="10">
+            <div ng-bind-html="team.name | highlight: $select.search">
+            </div>
+          </ui-select-choices>
+        </ui-select>
+
+        <ui-select theme="bootstrap" ng-model="vm.objective.team" search-enabled="true" ng-if="vm.objective._id && vm.objective.mainObjective">
+          <ui-select-match placeholder=" Selecione / Pesquise um time para vincular">
+            <div>
+              {{vm.objective.team.name}}
+            </div>
+          </ui-select-match>
+          <ui-select-choices ng-click="vm.selectTeam(vm.objective.team)" repeat="team in vm.teams | orderBy: 'name' | filter: {name: $select.search} "
+            maxlength="10">
+            <div ng-bind-html="team.name | highlight: $select.search">
+            </div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+
+    <div class="col-md-12 m-l-n">
+      <label for="Name" ng-if="vm.hierarchy != 'main'">* Responsável</label>
+    </div>
+    <div class="input-group ui-select-modal-objective m-b" ng-if="vm.hierarchy != 'main'">
+      <span class="input-group-addon">
+        <i class="glyphicon glyphicon-user"></i>
+      </span>
+      <ui-select theme="bootstrap" ng-model="vm.objective.owner" search-enabled="true" ng-if="vm.hierarchy != 'main' && !vm.objective._id">
+        <ui-select-match placeholder="{{vm.user.firstName}} {{vm.user.lastName}}">
+          <div>
+            {{vm.objective.owner.firstName || vm.objective.owner.name}} {{vm.objective.owner.lastName || ''}}
+          </div>
+        </ui-select-match>
+        <ui-select-choices repeat="option in vm.ownerOptions | orderBy: 'firstName || name' | filter: $select.search" maxlength="10">
+          <div ng-if="option.firstName">
+            <div class="">
+
+              <span class="ellipsis">
+                <i class="fa fa-user m-r-xs" aria-hidden="true"></i>
+                {{option.firstName}} {{option.lastName}}
+              </span>
+            </div>
+          </div>
+
+          <div ng-if="option.name">
+            <i class="fa fa-users m-r-xms m-l-n-xms" aria-hidden="true"></i> {{option.name}}
+          </div>
+        </ui-select-choices>
+      </ui-select>
+
+      <ui-select theme="bootstrap" ng-model="vm.objective.team" search-enabled="true" ng-if="vm.hierarchy != 'main' && vm.objective.ownerType=='team' && vm.objective._id">
+        <ui-select-match placeholder=" Selecione / Pesquise uma pessoa ou um time">
+          <div>
+            {{vm.objective.team.firstName || vm.objective.team.name}} {{vm.objective.team.lastName || ''}}
+          </div>
+        </ui-select-match>
+        <ui-select-choices repeat="option in vm.ownerOptions | orderBy: 'firstName || name' | filter: $select.search" maxlength="10">
+          <div ng-show="option.firstName">
+            <div class="">
+
+              <span class="ellipsis">
+                <i class="fa fa-user m-r-xs" aria-hidden="true"></i>
+                {{option.firstName}} {{option.lastName}}
+              </span>
+            </div>
+          </div>
+
+          <div ng-show="option.name">
+            <i class="fa fa-users m-r-xms m-l-n-xms" aria-hidden="true"></i> {{option.name}}
+          </div>
+        </ui-select-choices>
+      </ui-select>
+
+      <ui-select theme="bootstrap" ng-model="vm.objective.owner" search-enabled="true" ng-if="vm.hierarchy != 'main' && vm.objective.ownerType=='user' && vm.objective._id">
+        <ui-select-match placeholder=" Selecione / Pesquise uma pessoa ou um time">
+          <div>
+            {{vm.objective.owner.firstName || vm.objective.owner.name}} {{vm.objective.owner.lastName}}
+          </div>
+        </ui-select-match>
+        <ui-select-choices repeat="option in vm.ownerOptions | orderBy: 'firstName || name' | filter: $select.search" maxlength="10">
+          <div ng-show="option.firstName">
+            <div class="">
+
+              <span class="ellipsis">
+                <i class="fa fa-user m-r-xs" aria-hidden="true"></i>
+                {{option.firstName}} {{option.lastName}}
+              </span>
+            </div>
+          </div>
+
+          <div ng-show="option.name">
+            <i class="fa fa-users m-r-xms m-l-n-xms" aria-hidden="true"></i> {{option.name}}
+          </div>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+    <div class="form-group row" ng-if="vm.hierarchy != 'main'">
+      <div class="col-sm-12 ui-select-custom">
+        <label>Contribuidores </label>
+        <i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Pessoas que irão auxiliar no andamento do objetivo"
+          tooltip-placement="right"></i>
+        <ui-select multiple reset-search-input="true" ng-click="vm.clearText($select)" ng-model="vm.objective.contributors" theme="bootstrap"
+          sortable="true" title="Contribuidor">
+          <ui-select-match reset-search-input="true" placeholder="Selecione o(s) contribuidor(es)...">
+            {{$item.firstName}} {{$item.lastName}}
+          </ui-select-match>
+          <ui-select-choices repeat="user in vm.users | filter:$select.search | orderBy : 'firstName'" value="{{user._id}}">
+            {{user.firstName}} {{user.lastName}}
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-link" ng-click="vm.closeModal()">Fechar</button>
+    <button type="button" class="btn btn-primary" ng-disabled="vm.checkModalInputs()" ng-click="vm.save()">Salvar</button>
+  </div>
+</div>

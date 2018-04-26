@@ -1,0 +1,247 @@
+<div ng-if="vm.company" class="new-view-container detail-objective-container">
+  <div class="content-new-view transition animated fadeInDownBig">
+    <div class="header-detail-objective">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="data-detail-objective">
+            <div class="avatar-detail-objective">
+              {{vm.getInitials()}}
+            </div>
+            <div class="info-detail-objective">
+              <h3>{{vm.objective.name}}</h3>
+              <span ng-if="vm.objective.mainObjective" class="father-objective"><i class="glyphicon glyphicon-record m-t-xxs"></i> {{vm.objective.mainObjective.name}}</span>
+              <br/><a class="link" ng-if="vm.objective.ownerType=='user'" href="#/userdetails/{{vm.objective.owner._id}}">{{vm.objective.owner.firstName}} {{vm.objective.owner.lastName}}</a>
+              <span ng-if="vm.objective.ownerType=='team'" class="father-objective"><i class="fa fa-users m-t-xs" aria-hidden="true"></i> {{vm.objective.team.name}}</span>
+            </div>
+          </div>
+          <div class="other-info-objective-detail">
+            <div class="progress full progress-okr col-md-11 container-full">
+              <div ng-style="{'max-width': '100%', 'min-width': '35px', 'width': vm.objective.progress + '%'}" ng-class="vm.changeProgressBarStatus(vm.objective)"
+                aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar" class="progress-bar">
+                <span>{{vm.objective.progress}}%</span>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <i class="fa fa-thumbs-o-up trust-level-objective high" aria-hidden="true" ng-if="vm.objective.trustLevel=='high'" uib-tooltip="Nível de confiança para cumprir o objetivo"
+                tooltip-placement="top" tooltip-append-to-body=true></i>
+              <i class="fa fa-hand-paper-o trust-level-objective normal" aria-hidden="true" ng-if="vm.objective.trustLevel=='normal'" uib-tooltip="Nível de confiança para cumprir o objetivo"
+                tooltip-placement="top" tooltip-append-to-body=true></i>
+              <i class="fa fa-thumbs-o-down trust-level-objective low" aria-hidden="true" ng-if="vm.objective.trustLevel=='low'" uib-tooltip="Nível de confiança para cumprir o objetivo"
+                tooltip-placement="top" tooltip-append-to-body=true></i>
+            </div>
+            <div class="row col-md-12 m-t-xs">
+              <div class="tags-box-newview objective-tags col-md-12 m-l-n" ng-show="vm.objective.tags.length>0">
+                <tags ng-show="vm.objective.tags.length>0" class="tags-content no-delete combo" data-model="vm.objective.tags" data-options="{addable: false}"></tags>
+              </div>
+
+              <div class="clear-insertdate col-md-12 objective-infos m-l-n m-t-xs">
+                <div class="created-at col-md-4">
+                  <strong>Criado em </strong> {{vm.formatDate(vm.objective.insertDate)}}
+                </div>
+                <div class="intern-combo col-md-8">
+                  <div class="initial-owner-combo" ng-repeat="contributor in vm.objective.contributors" ng-if="vm.objective.contributors.length">
+                    <span uib-tooltip="{{contributor.firstName}} {{contributor.lastName}}" tooltip-placement="top" tooltip-append-to-body=true>
+                            {{vm.getInitials(contributor)}}
+                          </span>
+                  </div>
+                </div>
+              </div>
+              <div class="m-t intern-description col-md-12" ng-if="vm.objective.description">
+                {{vm.objective.description}}
+              </div>
+            </div>
+          </div>
+          <div class="key-results-detail col-md-12 m-t m-l-n-lg">
+            <div class="align-center between m-b">
+              <h4 class="subtitle-key-result" ng-if="vm.objective.keyResults.length">
+                Resultados chave
+              </h4>
+              <div class="text-right" ng-if="vm.objective.keyResults.length">
+                <button ng-click="vm.addKeyResult()" class="btn btn-sm btn-link bordered">
+                  <i class="fa fa-plus"></i> Novo resultado chave
+                </button>
+              </div>
+            </div>
+            <div class="hpanel panel-users filter-item">
+              <div class="panel-body box-list-user align-center" ng-if="vm.objective.keyResults.length && keyResult._id.isActive" ng-repeat="keyResult in vm.objective.keyResults">
+                <div class="avatar-key-result">
+                  {{vm.getInitials(keyResult._id.owner)}}
+                </div>
+                <div class="infos-key-result">
+                  <div>
+                    <h4>{{keyResult._id.name}}</h4>
+                    <a class="link m-t" href="#/userdetails/{{keyResult._id.owner._id}}">{{keyResult._id.owner.firstName}} {{keyResult._id.owner.lastName}}</a>
+                    <div ng-if="keyResult._id.checkIns.length > 0" class="m-t-xxs"> Atualizado há {{vm.getLastCheckInDate(keyResult)}}</div>
+                  </div>
+                  <div class="tools-key-result">
+                    <div class="progress full progress-okr custom">
+                      <div ng-style="{'max-width': '100%', 'min-width': '35px', 'width': keyResult._id.progress + '%'}" ng-class="vm.changeProgressBarStatus(keyResult._id)"
+                        aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar" class="progress-bar">
+                        <span>{{keyResult._id.progress}}%</span>
+                      </div>
+                    </div>
+                    <div class="status-objective-detail" ng-if="keyResult._id.type=='number' && keyResult._id.format=='unitary' && keyResult._id.inicialValue>=0">
+                      <span>({{keyResult._id.currentValue}} / <b>{{keyResult._id.targetValue}}</b>)</span>
+                      <div>
+                        <span><b>Inicial</b> {{keyResult._id.inicialValue}}</span>
+                      </div>
+                    </div>
+                    <div class="status-objective-detail" ng-if="keyResult._id.type=='number' && keyResult._id.format=='money' && keyResult._id.inicialValue>=0">
+                      <span>{{vm.formatNumber(keyResult._id.currentValue, keyResult._id.format)|currency}} / <b>{{vm.formatNumber(keyResult._id.targetValue, keyResult._id.format)|currency}}</b>)</span>
+                      <div>
+                        <span><b>Inicial</b> {{vm.formatNumber(keyResult._id.inicialValue, keyResult._id.format)|currency}}</span>
+                      </div>
+                    </div>
+                    <div class="status-objective-detail" ng-if="keyResult._id.type=='number' && keyResult._id.format=='percent' && keyResult._id.inicialValue>=0">
+                      <span>({{vm.formatNumber(keyResult._id.currentValue*100, keyResult._id.format)}}% / <b>{{vm.formatNumber(keyResult._id.targetValue*100, keyResult._id.format)}}%</b>)</span>
+                      <div>
+                        <span><b>Inicial</b> {{vm.formatNumber(keyResult._id.inicialValue*100, keyResult._id.format)}}%</span>
+                      </div>
+                    </div>
+                    <div>
+                      <a class="result-icons">
+                        <i class="fa fa-map-marker m-l" aria-hidden="true" ng-click="vm.addCheckIn(keyResult)" uib-tooltip="Check-in" tooltip-placement="top" aria-hidden="true" tooltip-append-to-body=true></i>
+                        <i class="fa fa-line-chart m-l-xs" ng-if="keyResult._id.type=='number'" ng-click="vm.generateGraph(keyResult._id)" uib-tooltip="Histórico" tooltip-placement="top" aria-hidden="true" tooltip-append-to-body=true></i>
+                        <i class="fa fa-pencil m-l-xs" ng-if="!vm.selectedPlanning.isFinished" ng-click="vm.editKeyResult(keyResult)" uib-tooltip="Editar" tooltip-placement="top" tooltip-append-to-body=true></i>
+                        <i class="fa fa-archive m-l-xs" ng-if="!vm.selectedPlanning.isFinished" ng-click="vm.deleteKeyResult(keyResult._id)" uib-tooltip="Arquivar" tooltip-placement="top" tooltip-append-to-body=true></i>
+                      </a>
+                    </div>
+
+                    <div class="nivel-confianca">
+                      <div ng-if="keyResult._id.type=='number' && keyResult._id.inicialValue==undefined">
+                        <span>-</span>
+                      </div>
+                      <div><i class="fa fa-thumbs-o-up trust-level-key high" aria-hidden="true" ng-if="keyResult._id.trustLevel=='high'"
+                          uib-tooltip="Nível de confiança para cumprir o resultado chave" tooltip-placement="bottom" tooltip-append-to-body=true></i></div>
+                      <div><i class="fa fa-hand-paper-o trust-level-key normal" aria-hidden="true" ng-if="keyResult._id.trustLevel=='normal'"
+                          uib-tooltip="Nível de confiança para cumprir o resultado chave" tooltip-placement="bottom" tooltip-append-to-body=true></i></div>
+                      <div><i class="fa fa-thumbs-o-down trust-level-key low" aria-hidden="true" ng-if="keyResult._id.trustLevel=='low'"
+                          uib-tooltip="Nível de confiança para cumprir o resultado chave" tooltip-placement="bottom" tooltip-append-to-body=true></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="panel-body box-list-user align-center" ng-if="!vm.objective.keyResults.length">
+              <div class="panel-body text-center col-md-12">
+                <h5 class="title">Não há resultados chave neste objetivo.</h5>
+                <p> Crie um clicando no botão "Novo resultado chave"</p>
+                <button ng-click="vm.addKeyResult()" class="btn btn-sm btn-link bordered">
+                  <i class="fa fa-plus"></i> Novo resultado chave
+                </button>
+              </div>
+            </div>
+            <div class="textAreaComment">
+              <textarea class="form-control" rows="3" placeholder="Faça um comentário.." ng-model="commentArea" id="commentTextArea" style="resize:none;"></textarea>
+              <div class="iconsave" ng-if="commentArea.length>0">
+                <span class="fa fa-check" ng-click="vm.newComment($event, this)" uib-tooltip="Salvar" tooltip-placement="top" aria-hidden="true"
+                  tooltip-append-to-body=true></span>
+              </div>
+              <div class="image-upload">
+                <label for="file-input">
+                    <span ng-if="!vm.archive.name.length" class="glyphicon glyphicon-paperclip clip-icon" uib-tooltip="Limite: 5MB" tooltip-placement="top" tooltip-append-to-body=true></span>
+                    <span ng-if="vm.archive.name.length" class="glyphicon glyphicon-paperclip clip-icon uploadIconActive" uib-tooltip="{{vm.archive.name}}" tooltip-placement="top" tooltip-append-to-body=true></span>
+                  </label>
+                <input id="file-input" type="file" ngf-max-size="5MB" ngf-select="vm.fileSelected()" ngf-drop="vm.archive=''" />
+              </div>
+              <div ng-if="vm.commentsLength>0" class="key-results-comments">
+                <div ng-repeat="comment in vm.comments | limitTo: vm.commentsLimit" ng-if="comment.content && comment.active" class="checkin-comment">
+                  <div class="initial-owner-checkIn m-l-lg ng-scope" uib-tooltip="{{comment.createdBy.firstName}} {{comment.createdBy.lastName}}"
+                    tooltip-placement="top" tooltip-append-to-body=true>
+                    {{vm.getInitials(comment.createdBy)}}
+                  </div>
+                  <div class="triangle" ng-if="!vm.isEditingComment[$index]"></div>
+                  <button ng-if="!comment.keysModified.length" class="checkin-balao" popover-animation="true" uib-popover-template="'commentsIncert.html'"
+                    type="button" popover-trigger='mouseenter' class="btn btn-default" ng-mouseover="vm.showCommentIcons($index, true)"
+                    ng-mouseleave="vm.showCommentIcons($index, false)" editable-textarea="comment.content" e-cols="75" e-rows="2"
+                    onshow="vm.isEditingComment[$index]=true" onhide="vm.isEditingComment[$index]=false" e-ng-keydown="vm.verifyKeyPressed($index, $event, this, comment)">{{comment.content}}</button>
+                  <button ng-if="comment.keysModified.length" class="checkin-balao" popover-animation="true" uib-popover-template="'commentsRelated.html'"
+                    popover-title="Relacionado" popover-trigger='mouseenter' class="btn btn-default" ng-mouseover="vm.showCommentIcons($index, true)"
+                    ng-mouseleave="vm.showCommentIcons($index, false)" editable-textarea="comment.content" e-cols="75" e-rows="2"
+                    onshow="vm.isEditingComment[$index]=true" onhide="vm.isEditingComment[$index]=false" e-ng-keydown="vm.verifyKeyPressed($index, $event, this, comment)">{{comment.content}}</button>
+                  <script type="text/ng-template" id="commentsIncert.html">
+                    <div class="commentsIncert">
+                      <span>Inserido em {{vm.formatDate(comment.insertDate)}}</span>
+                    </div>
+                  </script>
+                  <script type="text/ng-template" id="commentsRelated.html">
+                    <div class="commentsRelated" ng-repeat="key in comment.keysModified">
+                      <li>{{key.name}} </li>
+                    </div>
+                    <div class="Relatedcomment">
+                      <span class="textRelated">Inserido em {{vm.formatDate(comment.insertDate)}}</span>
+                    </div>
+                  </script>
+                  <div class="icons-comment">
+                    <i class="green fa fa-check" ng-click="vm.verifyKeyPressed($index)" ng-if="vm.isEditingComment[$index]" uib-tooltip="Salvar"
+                      tooltip-placement="top" aria-hidden="true" tooltip-append-to-body=true></i>
+                    </br><i class="red fa fa-times" ng-click="vm.deleteComment($index, $event)" ng-if="vm.isEditingComment[$index]"
+                      uib-tooltip="Excluir" tooltip-placement="top" aria-hidden="true" tooltip-append-to-body=true></i>
+                  </div>
+                  <a href="{{comment.link}}"><i class="glyphicon glyphicon-download-alt m-t-xxs" ng-if="comment.link && !vm.isEditingComment[$index]" uib-tooltip="{{comment.archive_name}}" tooltip-placement="top" aria-hidden="true" tooltip-append-to-body=true></i></a>
+
+                </div>
+                <button ng-if="vm.commentsLength>5 && vm.commentsLimit!='all'" type="button" ng-click="vm.commentsLimit='all'" class="btn btn-default maiscomments m-b-xs"><i class="fa fa-comments-o" aria-hidden="true"></i> Mostrar todos os comentários</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="controls-objective-detail text-right">
+            <button class="btn btn-default" ng-disabled="!vm.objective.keyResults.length" ng-click="vm.addCheckIn()" class="btn btn-sm btn-link bordered">
+              <i class="fa fa-map-marker" aria-hidden="true"></i> Check-in
+            </button>
+            <button class="btn btn-default" ng-if="!vm.selectedPlanning.isFinished" ng-click="vm.editObjective()">
+              <i class="fa fa-pencil"></i>
+              Editar
+            </button>
+            <button class="btn btn-default" ng-click="vm.archivateObjective()">
+              <i class="fa fa-archive"></i>
+              Arquivar
+            </button>
+
+          </div>
+          <div class="key-results-stats">
+            <div class="align-center between m-b">
+              <h4 class="subtitle-key-result">
+                Últimos check-ins
+              </h4>
+            </div>
+
+            <div ng-class="{'checkins-scroll' : vm.checkIns.length > 5}">
+              <div class="stat-key-result scroll" ng-if="vm.objective.keyResults.length" ng-repeat="checkIn in vm.checkIns">
+                <div><strong>{{checkIn.key}}</strong></div>
+                <div><i class="fa fa-user-circle-o" aria-hidden="true"></i> {{checkIn.createdBy.firstName}} {{checkIn.createdBy.lastName}}</div>
+                <div><i class="fa fa-calendar" aria-hidden="true"></i> {{vm.formatDate(checkIn.insertDate)}} <i class="fa fa-clock-o"
+                    aria-hidden="true"></i> {{vm.formatTime(checkIn.insertDate)}}</div>
+
+                <div ng-if="checkIn.value && checkIn.format=='unitary'">Valor <strong>{{checkIn.value}}</strong></div>
+                <div ng-if="checkIn.value && checkIn.format=='money'">Valor <strong>{{checkIn.value|currency}}</strong></div>
+                <div ng-if="checkIn.value && checkIn.format=='percent'">Valor <strong>{{vm.checkInsValue(checkIn.value)}}%</strong></div>
+                <div ng-if="!checkIn.value"><strong>{{vm.verifyLogicalKeyStatus(checkIn.key)}}</strong></div>
+              </div>
+            </div>
+            <div class="panel-body box-list-user align-center" ng-if="!vm.objective.keyResults.length">
+              <div class="panel-body text-center">
+                <h5 class="title">Sem dados.</h5>
+                <p>Não há check-ins. Comece criando um resultado chave ao clicar no botão <br>"
+                  <a ng-click="vm.addKeyResult()">
+                    <u>Novo resultado chave</u>
+                  </a>"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+
+      </div>
+      <div class="col-md-4">
+
+      </div>
+    </div>
+  </div>
+</div>

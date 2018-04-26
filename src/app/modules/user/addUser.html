@@ -1,0 +1,156 @@
+<div class="container-inline" ng-hide="vm.$stateParams.id">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center m-b-md">
+        <h3>Novo usuário</h3>
+        <small>Ao cadastrar o e-mail do novo usuário o mesmo receberá um
+          <strong>e-mail de confirmação</strong>
+          de cadastro em sua caixa de entrada.
+        </small>
+      </div>
+      <div class="hpanel">
+        <div class="box-edit-users">
+          <form>
+            <div class="row">
+              <div class="form-group  col-lg-12">
+                <label class="control-label">E-mail</label>
+                <input type="email" id="userEmail" class="form-control" ng-model="vm.user.username" required/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group  col-lg-12">
+                <input ng-model="vm.addUserAdministrator" id="Administrador" name="userType" type="radio">
+                <label for="Administrador">
+                  <p class="label label-default">
+                    Administrador</p>
+                </label>
+                <i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Além das funcionalidades básicas, faz a gestão de usuários e times e pode criar, editar e excluir objetivos para a empresa"
+                  tooltip-placement="right"></i>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group  col-lg-12">
+                <input ng-model="vm.addUserManager" id="Gestor" name="userType" type="radio">
+                <label for="Gestor">
+                  <p class="label label-warning">
+                    Gestor</p>
+                </label>
+                <i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Além das funcionalidades básicas, pode criar usuários e fazer a gestão de times para a empresa"
+                  tooltip-placement="right"></i>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group  col-lg-12">
+                <input id="Normal" name="userType" type="radio" ng-checked=true>
+                <label for="Normal">
+                  <p class="label label-info">
+                    Usuário comum</p>
+                </label>
+                <i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Tem acesso somente às funcionalidades básicas do sistema"
+                  tooltip-placement="right"></i>
+              </div>
+            </div>
+            <div class="text-center">
+              <button class="btn btn-link btn-sm" ui-sref="getOkr.users">Voltar</button>
+              <button class="btn btn-success btn-sm" data-ng-value="buttonSaveValue" type="submit" ng-click="vm.addUser()" ng-disabled="vm.validateNewUser()">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-inline" ng-hide="!vm.$stateParams.id">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center m-b-md">
+        <h3>Editar usuário</h3>
+        <small>
+          Preencha os dados a serem atualizados no usuário.
+        </small>
+      </div>
+      <div class="hpanel">
+        <div class="box-edit-users">
+          <form ng-submit="vm.save()">
+            <div class="row">
+              <div class="form-group  col-lg-12">
+                <label class="control-label">Nome</label>
+                <input type="text" id="userFirstName" class="form-control" ng-model="vm.userEdit.firstName" required/>
+              </div>
+              <div class="form-group  col-lg-12">
+                <label class="control-label">Sobrenome</label>
+                <input type="text" id="userLastName" class="form-control" ng-model="vm.userEdit.lastName" required/>
+              </div>
+              <div class="form-group  col-lg-12">
+                <label class="control-label">E-mail</label>
+                <input type="text" id="userEmail" class="form-control" ng-model="vm.userEdit.username" readonly/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group  col-lg-12">
+                <input ng-model="vm.editUserAdministrator" id="Administrador" name="userType" type="radio" ng-checked="vm.userEdit.isAdministrator">
+                <label for="Administrador">
+                  <p class="label label-default">
+                    Administrador</p>
+                </label>
+                <i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Além das funcionalidades básicas, faz a gestão de usuários e pode criar, editar e excluir objetivos para a empresa"
+                  tooltip-placement="right"></i>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group  col-lg-12">
+                <input ng-model="vm.editUserManager" id="Gestor" name="userType" type="radio" ng-checked="!vm.userEdit.isAdministrator && vm.userEdit.canCreate">
+                <label for="Gestor">
+                  <p class="label label-warning">
+                    Gestor</p>
+                </label>
+                <i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Além das funcionalidades básicas, pode criar, editar e excluir objetivos para a empresa"
+                  tooltip-placement="right"></i>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group  col-lg-12">
+                <input id="Normal" name="userType" type="radio" ng-checked="!vm.userEdit.isAdministrator && !vm.userEdit.canCreate">
+                <label for="Normal">
+                  <p class="label label-info">
+                    Usuário comum</p>
+                </label>
+                <i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Tem acesso somente às funcionalidades básicas do sistema"
+                  tooltip-placement="right"></i>
+              </div>
+            </div>
+            <!--<div class="row">
+                            <div class="form-group  col-lg-12">
+                                <div class="checkbox no-margin checkbox-default">
+                                    <input ng-model="vm.userEdit.isAdministrator" id="Administrador" name="userType" type="radio">
+                                    <label for="Administrador">
+                                            <p class="label label-default">
+                                            Administrador</p>
+                                        </label><i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Além das funcionalidades básicas, faz a gestão de usuários e pode criar, editar e excluir objetivos para a empresa"
+              tooltip-placement="right"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group  col-lg-12">
+                                <div class="checkbox no-margin checkbox-warning">
+                                    <input ng-model="vm.userEdit.canCreate" id="Aprovador" name="userType" type="radio">
+                                    <label for="Aprovador">
+                                            <p class="label label-warning">
+                                            Gestor</p>
+                                        </label><i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Além das funcionalidades básicas, pode criar, editar e excluir objetivos para a empresa"
+              tooltip-placement="right"></i>
+                                </div>
+                            </div>
+                        </div>-->
+            <div class="text-center">
+              <button class="btn btn-link btn-sm" ui-sref="getOkr.users">Voltar</button>
+              <button class="btn btn-success btn-sm" data-ng-value="buttonSaveValue" type="submit" ng-click="vm.editUser()" ng-disabled="vm.validateEditUser()">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

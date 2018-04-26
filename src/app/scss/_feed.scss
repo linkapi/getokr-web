@@ -1,0 +1,112 @@
+.container-two-sidebars {
+  .sidebar-left {
+    .find-item {
+      left: 4px;
+    }
+    .find-user {
+      text-indent: 20px;
+    }
+  }
+}
+
+table.table-feeds {
+  width: 98%;
+  margin: auto;
+  thead tr th {
+    font-weight: bold;
+  }
+}
+
+.header-fixed {
+  width: 100%
+}
+
+.header-fixed>thead,
+.header-fixed>tbody,
+.header-fixed>thead>tr,
+.header-fixed>tbody>tr,
+.header-fixed>thead>tr>th,
+.header-fixed>tbody>tr>td {
+  display: block;
+}
+
+.header-fixed>tbody>tr:after,
+.header-fixed>thead>tr:after {
+  content: ' ';
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+.header-fixed>tbody {
+  overflow-y: auto;
+  height: 500px;
+}
+
+.header-fixed>tbody>tr>td,
+.header-fixed>thead>tr>th {
+  float: left;
+}
+
+.user-feed-table {
+  width: 75px;
+}
+
+.objective-feed-table {
+  // max-width: 135px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mainobjective-feed-table {
+  width: 140px;
+}
+
+.feed-table-head1 {
+  width: 8%!important;
+}
+
+.feed-table-head2 {
+  width: 14%!important;
+}
+
+.feed-table-head3 {
+  width: 24%!important;
+}
+
+.activity-checkin {
+  color: gray;
+}
+
+.new-view-container {
+  &.container-feed {
+    .feed {
+      .mais-checkins {
+        margin: 30px 0;
+        text-align: center;
+        .btn {
+          transition: all ease .4s;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+}
+
+.track-owner {
+  display: flex;
+}
+
+.feedComment {
+  white-space: pre-line;
+  word-break: break-all;
+  height: 100%;
+  display: flex;
+  .feedAreaComment {
+    height: 100%;
+    padding: 0px;
+  }
+}

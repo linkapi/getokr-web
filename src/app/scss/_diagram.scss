@@ -1,0 +1,463 @@
+.new-view-container {
+  &.container-diagram {
+    max-width: none;
+    bottom: 0;
+    background-color: #eff0f4;
+    .header-diagram {
+      margin-top: 8px;
+      z-index: 99;
+      position: absolute;
+      left: 25%;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      background-color: transparent;
+    }
+    .content-new-view {
+      margin-left: 0px;
+      padding-right: 0;
+      height: 100%;
+    }
+  }
+  .box-select-diagram {
+    .ui-select-bootstrap {
+      height: 30px;
+      min-width: 200px;
+      text-align: left !important;
+    }
+    .ui-select-bootstrap>.ui-select-choices {
+      margin-left: 0px;
+      width: 100%;
+      text-align: left !important;
+    }
+    .btn-group>.btn:first-child {
+      margin-left: 6px;
+    }
+    .tag-component {
+      background: transparent;
+      border: 0;
+      display: block;
+      text-align: left !important;
+      min-width: 100px;
+      padding: 0 0px;
+      border: 1px solid #e0e4e6;
+      border-radius: 4px;
+      background: #fff;
+      height: 34px;
+      margin-top: 1px;
+    }
+    .tag-component.has-tags .dropdown-toggle {
+      color: #5F6C72 !important;
+      font-size: 15px;
+      text-align: left !important;
+    }
+    .btn .caret {
+      margin-left: 32px;
+    }
+  }
+}
+
+.box-select-diagram {
+  padding-right: 20px;
+}
+
+.tree * {
+  margin: 0;
+  padding: 0;
+}
+
+.tree ul {
+  padding-top: 20px;
+  position: relative;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+}
+
+.tree li {
+  float: left;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 20px 5px 0 5px;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+}
+
+/*We will use ::before and ::after to draw the connectors*/
+
+.tree li::before,
+.tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid #8dc63f;
+  width: 50%;
+  height: 20px;
+}
+
+.tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #8dc63f;
+}
+
+/*We need to remove left-right connectors from elements without
+any siblings*/
+
+.tree li:only-child::after,
+.tree li:only-child::before {
+  display: none;
+}
+
+/*Remove space from the top of single children*/
+
+.tree li:only-child {
+  padding-top: 0;
+}
+
+/*Remove left connector from first child and
+right connector from last child*/
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+  border: 0 none;
+}
+
+/*Adding back the vertical connector to the last nodes*/
+
+.tree li:last-child::before {
+  border-right: 2px solid #8dc63f;
+  border-radius: 0 5px 0 0;
+  -webkit-border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+  border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+}
+
+/*Time to add downward connectors from parents*/
+
+.tree ul ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 2px solid #8dc63f;
+  width: 0;
+  height: 20px;
+}
+
+.tree li a {
+  border: 1px solid #8dc63f;
+  padding: 1em 0.75em;
+  text-decoration: none;
+  color: #666767;
+  font-family: arial, verdana, tahoma;
+  font-size: 0.85em;
+  display: inline-block;
+  border-radius: 3px;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+}
+
+.tree ul.vertical,
+ul.vertical ul {
+  padding-top: 0px;
+  left: 50%;
+}
+
+.tree ul ul.vertical::before {
+  display: none;
+}
+
+.tree ul.vertical li {
+  float: none;
+  text-align: left;
+}
+
+.tree ul.vertical li::before {
+  right: auto;
+  border: none;
+}
+
+.tree ul.vertical li::after {
+  display: none;
+}
+
+.tree ul.vertical li a {
+  padding: 10px 0.75em;
+  margin-left: 16px;
+}
+
+.tree ul.vertical li::before {
+  top: -20px;
+  left: 0px;
+  border-bottom: 1px solid #8dc63f;
+  border-left: 1px solid #8dc63f;
+  width: 20px;
+  height: 60px;
+}
+
+.tree ul.vertical li:first-child::before {
+  top: 0px;
+  height: 40px;
+}
+
+div.tree>ul>li>ul>li>a {
+  width: 11em;
+}
+
+div.tree>ul>li>a {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.tree li a:hover,
+.tree li a:hover+ul li a {
+  background: #8dc63f;
+  color: white;
+}
+
+.tree li a:hover+ul li::after,
+.tree li a:hover+ul li::before,
+.tree li a:hover+ul::before,
+.tree li a:hover+ul ul::before {
+  border-color: #aaa;
+}
+
+.custom-title-diagram {
+  margin-top: 60px;
+  padding-top: 25px;
+  font-size: 25px;
+  font-weight: 900px;
+}
+
+.new-view-tree {
+  .content-new-view {
+    margin-left: 330px;
+    &.content-projects {
+      margin-bottom: 50px;
+      min-height: initial;
+    }
+  }
+  .tree {
+    li {
+      a {
+        background-color: white;
+        -webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e2e2e2;
+        &.father {
+          padding: 45px;
+        }
+        &.child {}
+      }
+    }
+  }
+}
+
+.nodeClass {
+  font-size: 12px;
+  max-width: 100vw;
+  min-height: 100%;
+  margin: 0px;
+  overflow-x: auto;
+  background-color: #eff0f4;
+  font-size: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 80px;
+}
+
+.google-visualization-orgchart-connrow-medium {
+  height: 9px;
+  font-size: 13px;
+}
+
+.google-visualization-orgchart-node {
+  border: 0px solid #b5d9ea;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fff));
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 1px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 1px;
+  margin-left: 50px;
+  box-shadow: 0px 0px 1px 1px rgba(196, 196, 196, 1);
+}
+
+.google-visualization-orgchart-linenode {
+  padding: 0px;
+  margin: 0px;
+}
+
+.google-visualization-orgchart-table {
+  td {
+    padding-right: 10px;
+  }
+  .google-visualization-orgchart-node {
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+    font-size: 11px;
+    color: #5F6C72;
+    min-width: 205px;
+    line-height: 13px;
+    .name-objective {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 13px;
+      color: $color-text;
+      line-height: 18px;
+    }
+    .text-underline {
+      text-decoration: underline;
+    }
+    .icon-div {
+      display: inline-block;
+      float: right;
+    }
+    .icon-key-result {
+      cursor: pointer;
+      color: $color-default-theme;
+      min-width: 30px;
+      height: 30px;
+      font-family: FontAwesome;
+      font-size: 18px;
+      line-height: 18px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    &[title="Objetivo filho"] {
+      .icon-key-result {
+        &:before {
+          content: "\f067";
+        }
+      }
+    }
+    .icone {
+      color: $color-default-theme;
+      min-width: 30px;
+      height: 30px;
+      font-family: FontAwesome;
+      font-size: 18px;
+      line-height: 18px;
+      display: inline-flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    &[title="Objetivo filho"] {
+      .icone {
+        &:before {
+          content: "\f140";
+        }
+      }
+    }
+    &[title="Resultado chave"] {
+      .icone {
+        &:before {
+          content: "\f084";
+        }
+      }
+    }
+    &[title="Objetivo da empresa"] {
+      .icone {
+        &:before {
+          content: "\f091";
+        }
+      }
+    }
+  }
+}
+
+.google-visualization-orgchart-lineleft {
+  border-left: 2px solid #ccc;
+}
+
+.google-visualization-orgchart-lineright {
+  border-right: 2px solid #ccc;
+}
+
+.google-visualization-orgchart-linebottom {
+  border-bottom: 2px solid #ccc;
+}
+
+.google-visualization-orgchart-node-medium {
+  font-size: 1.2em;
+}
+
+.busca {
+  width: 300px;
+  margin-left: 20px;
+}
+
+.google-visualization-orgchart-nodesel {
+  border: 0px solid #e3ca4b;
+  background-color: #fff7ae;
+  background: -webkit-gradient(linear, left top, left bottom, from(#edfcf8), to(#fff));
+}
+
+.google-visualization-orgchart-node-medium {
+  font-size: 1.2em;
+  color: #34495e;
+  text-align: left;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.barra {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  &.green {
+    background-color: $color-green;
+  }
+  &.yellow {
+    background-color: $color-yellow;
+  }
+  &.red {
+    background-color: $color-red;
+  }
+  &.blue {
+    background-color: $color-blue;
+  }
+  &.teal {
+    background-color: $color-navy-blue;
+  }
+  &.default {
+    background-color: $color-gray;
+  }
+}
+
+.container-custom {
+  padding-top: 60px;
+}
+
+.arrowCollapse {
+  cursor: pointer;
+  font-size: 1.5em;
+}
+
+.allIcons {
+  position: absolute;
+  left: 8%;
+  top: 80%;
+}
+
+.rotate-arrow {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg)
+}

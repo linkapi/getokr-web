@@ -1,0 +1,94 @@
+<div class="inmodal ">
+  <div class="modal-header text-center">
+    <h4 class="modal-title">Personalização do sistema</h4>
+  </div>
+  <div class="modal-body-custom-grup">
+
+    <form>
+      <div class="row">
+        <div class="form-group">
+          <label class="control-label custom-title">Cor da barra de progresso</label>
+        </div>
+      </div>
+      <div class="row">
+        <label class="control-label">Primeiro intervalo</label>
+        <div class="row">
+          <div class="form-group  col-lg-1">
+            <label class="custom-de">de</label>
+          </div>
+          <div class="form-group  col-lg-2">
+            <input id="input" type="number" value="0" class="form-control input-from" ng-model="vm.begin" readonly>
+          </div>
+          <div class="form-group  col-lg-1">
+            <label class="custom-ate">até</label>
+          </div>
+          <div class="form-group  col-lg-2">
+            <select id="input" class="form-control" ng-model="vm.progressBar[0].end">
+                            <option ng-repeat="interval in vm.intervals" ng-if="interval > vm.begin">{{interval}}</option>
+                        </select>
+          </div>
+          <div class="form-group  col-lg-6">
+            <button class="circle-color {{stepColor}}" data-ng-click="vm.progressBar[0].color = stepColor;" data-ng-repeat="stepColor in vm.stepColors"
+              ng-class="{'circle-active' : vm.progressBar[0].color === stepColor}"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" ng-hide="!vm.progressBar[0].end || vm.progressBar[0].end==100">
+        <label class="control-label">Segundo intervalo</label>
+        <div class="row">
+          <div class="form-group  col-lg-1">
+            <label class="custom-de">de</label>
+          </div>
+          <div class="form-group  col-lg-2">
+            <select id="input" class="form-control" ng-model="vm.progressBar[0].end" ng-disabled="true">
+                <option ng-repeat="interval in vm.intervals" ng-if="interval<100">{{interval}}</option>
+            </select>
+          </div>
+          <div class="form-group  col-lg-1">
+            <label class="custom-ate">até</label>
+          </div>
+          <div class="form-group  col-lg-2">
+            <select id="input" class="form-control" ng-model="vm.progressBar[1].end">
+                <option ng-repeat="interval in vm.intervals" ng-if="interval>vm.progressBar[0].end">{{interval}}</option>
+            </select>
+          </div>
+          <div class="form-group  col-lg-6">
+            <button class="circle-color {{stepColor}}" data-ng-click="vm.progressBar[1].color = stepColor;" data-ng-repeat="stepColor in vm.stepColors"
+              ng-class="{'circle-active' : vm.progressBar[1].color === stepColor}"></button>
+          </div>
+        </div>
+      </div>
+      <div class="row" ng-hide="!vm.progressBar[1].end || vm.progressBar[1].end==100 || vm.progressBar[0].end==100">
+        <label class="control-label">Terceiro intervalo</label>
+        <div class="row">
+          <div class="form-group  col-lg-1">
+            <label class="custom-de">de</label>
+          </div>
+          <div class="form-group  col-lg-2">
+            <select id="input" class="form-control" ng-model="vm.progressBar[1].end" ng-disabled="true">
+                <option disabled value="">Selecione</option>
+                <option ng-repeat="interval in vm.intervals" ng-if="interval<100">{{interval}}</option>
+            </select>
+          </div>
+          <div class="form-group  col-lg-1">
+            <label class="custom-ate">até</label>
+          </div>
+          <div class="form-group  col-lg-2">
+            <input id="input" type="number" value="100" class="form-control" ng-model="vm.end" readonly>
+          </div>
+          <div class="form-group  col-lg-6">
+            <button class="circle-color {{stepColor}}" data-ng-click="vm.lastColor = stepColor;" data-ng-repeat="stepColor in vm.stepColors"
+              ng-class="{'circle-active' : vm.lastColor === stepColor}"></button>
+          </div>
+        </div>
+      </div>
+  </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-link btn-sm" ng-click="vm.closeModal()" type="button">Cancelar</button>
+  <button class="btn btn-success btn-sm" ng-disabled="vm.validateCustomize()" ng-click="vm.save(); vm.mixpanel('Alterou a senha')">Salvar</button>
+</div>
+</div>

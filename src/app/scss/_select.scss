@@ -1,0 +1,74 @@
+#side-menu {
+  li {
+    .select2-container {
+      a.select2-choice {
+        padding: 5px 45px 5px 10px;
+        height: 40px;
+        width: 180px;
+        font-size:11px;
+        border: solid 1px #e4e5e7;
+        background-color: #fff;
+        abbr {
+          top: 12px;
+        }
+
+        .select2-chosen {
+          margin-right: 0;
+        }
+        .select2-arrow {
+          background-image: none;
+          background-color: #ECEFF4;
+          border-left: 0;
+          b {
+            background-position-y: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .select2-search {
+    margin-top: 5px;
+  }
+}
+.ui-select-choices-row:hover {
+  color: #000;
+  background-color: #C0C0C0; 
+}
+.auto-appointment-content {
+  .ui-select-container {
+    width: 100%;
+    .select2-choice {
+      height: 35px;
+      padding: 3px 0 0 0;
+      border: 0;
+      background-color: transparent;
+      background-image: none;
+      border-radius: 0;
+      .select2-arrow {
+        border-left: 0;
+        background-image: none;
+        background-color: transparent;
+        b {
+          background-position-y: 5px;
+        }
+      }
+      &:focus{
+        outline: 0;
+      }
+    }
+    .select2-drop-active {
+      border: none;
+      border-top: none;
+    }
+    .select2-drop {
+      margin-top: 4px;
+    }
+  }
+
+  .select2-container-active{
+    .select2-choice{
+      box-shadow: none;
+    }
+  }
+}

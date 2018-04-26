@@ -1,0 +1,44 @@
+/* Fonts */
+.font-light {
+  font-weight: 300;
+}
+.font-normal {
+  font-weight: 400;
+}
+.font-bold {
+  font-weight: 600;
+}
+.font-extra-bold {
+  font-weight: 700;
+}
+
+.font-uppercase {
+  text-transform: uppercase;
+}
+
+.font-trans {
+  opacity: 0.5 !important;
+}
+
+.font-small {
+  font-size: 9px;
+  padding-right: 4px;
+}
+
+.text-big {
+  font-size: 60px;
+}
+
+.form-group.full label.text-rate{
+  padding: 8px 0;
+  line-height: normal;
+  max-width: 495px;
+  font-weight: normal;
+  font-style: italic;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 200;
+}

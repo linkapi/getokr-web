@@ -1,0 +1,92 @@
+<div ui-sref="getOkr.strategy" id="logo" class="dark-version">
+  <a ng-click="main.mixpanel('Clicou no logo do getOkr')">
+        <img src="../../images/logo-getokr.png">
+    </a>
+</div>
+<nav role="navigation">
+  <div ui-sref="getOkr.strategy" class="small-logo">
+    <a ng-click="main.mixpanel('Clicou no logo do getOkr')">
+            <img src="../../images/logo-getokr.png">
+        </a>
+  </div>
+  <div class="mobile-menu">
+    <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#mobile-collapse">
+      <i class="fa fa-chevron-down"></i>
+    </button>
+    <div class="collapse mobile-navbar" id="mobile-collapse">
+      <ul class="nav navbar-nav">
+        <li ng-class="{active: main.isCurrentState('getOkr.objectives')}">
+          <a ui-sref="getOkr.objectives">Objetivos</a>
+        </li>
+        <li ng-class="{active: main.isCurrentState('getOkr.strategy')}">
+          <a ui-sref="getOkr.strategy">Mapa estratégico</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="navbar-left navbar-hashtrack">
+    <ul class="nav navbar-nav no-borders">
+      <li ng-class="{active: main.isIntoProfile()}">
+        <a ng-click="main.goToProfile()">
+                    <i class="ion-person"></i> <span class="text-menu">Meu perfil</span>
+                </a>
+      </li>
+      <li ui-sref="getOkr.strategy" ng-class="{active: main.isCurrentState('getOkr.strategy')}">
+        <a ng-click="main.mixpanel('Clicou na tab mapa estratégico')">
+          <i class="ion-map"></i> <span class="text-menu">Mapa estratégico</span>
+                </a>
+      </li>
+      <li ui-sref="getOkr.objectives" ng-class="{active: main.isCurrentState('getOkr.objectives')}">
+        <a ng-click="main.mixpanel('Clicou na tab objetivos')">
+          <i class="ion-ribbon-b"></i> <span class="text-menu">Objetivos</span>
+                </a>
+      </li>
+      <li ui-sref="getOkr.people" ng-class="{active: main.isCurrentState('getOkr.people')}">
+        <a ng-click="main.mixpanel('Clicou na tab pessoas')">
+          <i class="ion-person-stalker"></i> <span class="text-menu">Pessoas</span>
+                </a>
+      </li>
+      <li ui-sref="getOkr.diagram" ng-class="{active: main.isCurrentState('getOkr.diagram')}">
+        <a ng-click="main.mixpanel('Clicou na tab diagrama')">
+          <i class="ion-network"></i> <span class="text-menu">Diagrama</span>
+                </a>
+      </li>
+      <li ui-sref="getOkr.feeds" ng-class="{active: main.isCurrentState('getOkr.feeds')}">
+        <a ng-click="main.mixpanel('Clicou na tab últimas atualizações')">
+          <i class="ion-clock"></i> <span class="text-menu">Últimas atualizações</span>
+                </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="navbar-right">
+    <ul class="nav navbar-nav no-borders">
+      <li class="dropdown" uib-dropdown>
+        <a class="link-user" uib-dropdown-toggle href="#">
+                    <span>{{main.user.firstName}} {{main.user.lastName}}</span>
+                    <i class="pe-7s-angle-down m-l"></i>
+                </a>
+        <ul uib-dropdown-menu class="animated fadeIn m-t-xs m-l-n-xs right-side">
+          <li ng-click="main.changePassword(); main.mixpanel('Clicou no menu alterar senha')" class="m-t-xs">
+            <a>Alterar senha</a>
+          </li>
+          <li ng-if="main.user.isAdministrator" ng-click="main.customizeGetokr(); main.mixpanel('Clicou no menu personalizar')" class="m-t-xs">
+            <a>Personalizar réguas</a>
+          </li>
+          <li ui-sref="getOkr.tag" class="m-t-xs">
+            <a ng-click="main.mixpanel('Clicou no menu tags')">Tags</a>
+          </li>
+          <li ui-sref="getOkr.teams" class="m-t-xs" ng-if="main.user.isAdministrator || main.user.canCreate">
+            <a ng-click="main.mixpanel('Clicou no menu times')">Times</a>
+          </li>
+          <li ui-sref="getOkr.users" class="m-t-xs" ng-if="main.user.isAdministrator || main.user.canCreate">
+            <a ng-click="main.mixpanel('Clicou no menu meu time')">Usuários</a>
+          </li>
+          <li ng-click="main.logOut(); main.mixpanel('Clicou no menu sair')" class="m-t-xs">
+            <a>Sair</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>

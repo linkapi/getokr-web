@@ -1,0 +1,125 @@
+<div class="new-view-container container-feed">
+  <div class="sidebar-left sidebar-new-view feed transition animated fadeInLeft">
+    <div class="periodo-box">
+      <h3>Filtros</h3>
+      <div class="list-group select-planning-list">
+        <button type="button" ng-class="{active : vm.range == 'week'}" class="list-group-item" ng-click="vm.resetData('week')">Última semana</button>
+        <button type="button" ng-class="{active : vm.range == 'month'}" class="list-group-item" ng-click="vm.resetData('month')">Último mês</button>
+      </div>
+    </div>
+    <div class="box-tags transition animated fadeInUp">
+      <ul class="list-inline">
+        <li class="active">
+          <a href="#tab-2">Usuário</a>
+        </li>
+      </ul>
+      <div class="transition animated fadeIn">
+        <div class="loader-planning" ng-hide="vm.loadView"></div>
+      </div>
+      <div class="tab-content" ng-hide="!vm.loadView">
+        <div id="tab-2" class="tab-pane active">
+          <div ng-if="vm.users.length > 0">
+            <div class="busca-clientes m-b">
+              <i class="fa fa-search icone-absolute find-item"></i>
+              <input placeholder="Buscar usuário" class="form-control find-user" ng-model="searchTab1"></input>
+            </div>
+            <div class="filter-length" ng-if="vm.filter.owner.length">
+              <h6>{{vm.filter.owner.length}}{{vm.filter.owner.length > 1 ? ' usuários selecionados' : ' usuário selecionado'}}</h6>
+            </div>
+            <button class="btnreset" ng-if="vm.filter.owner.length > 0" ng-click="vm.resetFilter()">Limpar filtro</button>
+            <div class="input-group">
+              <div class="checkbox truncate-checkbox checkbox-primary" ng-repeat="user in vm.usersFilter | filter : {customName : searchTab1} | orderBy : 'firstName'">
+                <input checklist-model="vm.filter.owner" ng-click="vm.filterByUser()" checklist-value="user._id" id="{{user._id}}" name="check"
+                  type="checkbox">
+                <label for="{{user._id}}" popover-trigger="mouseenter">
+                    <span>{{vm.userHaveName(user)}}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body text-center" ng-if="vm.users.length == 0">
+            <h5 class="title">Sem dados.</h5>
+            <p>Você ainda não possui usuários cadastrados</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-new-view feed transition animated fadeIn">
+    <div class="tab-report">
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab1default">
+          <div class="hpanel panel-users filter-item">
+            <div class="transition animated fadeIn">
+              <div class="loader-feeds" ng-hide="vm.loadView"></div>
+            </div>
+            <div class="panel-body box-list-user" ng-if="vm.loadView" ng-repeat="track in vm.tracks">
+              <div class="row align-center">
+                <div class="col-md-12" id="feed{{$index}}">
+                  <div class="company-okr-title col-md-10">
+                    <div class="track-owner">
+                      <h5 class="user-name pull-left"><b><a class="link" ng-click="vm.mixpanel('Clicou no usuário para visualizar seus detalhes')" href="#/userdetails/{{track.createdBy._id}}">{{vm.getUpperCase(track.createdBy)}}</a></b>
+                        <span class="activity-checkin">{{vm.createMessage(track)}}</span>
+                      </h5>
+                    </div>
+                    <div class="clear" ng-if="track.target != 'comment' && track.target != 'objective' && track.target != 'user' && vm.verifyUserCreation(track)">
+                      <h6 class="m-b-sm"><i ng-class="vm.getIcon(track)" aria-hidden="true"></i>{{vm.getObjectName(track)}}</h6>
+                    </div>
+                    <div class="clear" ng-if="track.target == 'user'">
+                      <h6 class="m-b-sm"><i ng-class="vm.getIcon(track)" ng-if="vm.verifyUserCreation(track)" aria-hidden="true"></i><a class="link"
+                          ng-if="track.type!='archivate' && track.user.isActive && vm.verifyUserCreation(track)" ng-click="vm.mixpanel('Clicou no usuário para visualizar seus detalhes')"
+                          href="#/userdetails/{{track.user._id}}">{{vm.getObjectName(track)}}</a></h6>
+                    </div>
+                    <div class="clear" ng-if="track.target == 'objective'">
+                      <h6 class="m-b-sm"><i ng-class="vm.getIcon(track)" aria-hidden="true"></i><span ng-if="track.type=='archivate' || track.objective.deactivate">{{vm.getObjectName(track)}}</span>
+                        <a class="link" ng-if="track.type!='archivate' && !track.objective.deactivate" ng-click="vm.mixpanel('Clicou no objetivo para visualizar seus detalhes')"
+                          href="#/objective/{{track.objective._id}}">{{vm.getObjectName(track)}}</a>
+                      </h6>
+                    </div>
+                    <div class="clear" ng-if="track.target == 'comment'">
+                      <h6><i ng-class="vm.getIcon(track)" aria-hidden="true"></i><a class="link" ng-click="vm.mixpanel('Clicou no objetivo para visualizar seus detalhes')"
+                          href="#/objective/{{track.comment.objective._id}}">{{vm.getObjectName(track)}}</a></h6>
+                    </div>
+                    <div class="clear" ng-if="track.target == 'checkIn'">
+                      <h6>Realizado <b>{{vm.formatCurrent(track.checkIn)}}</b> / Alvo <b>{{vm.formatTarget(track.checkIn)}}</b></h6>
+                      <div class="clear m-t-xs">
+                        <h6>Valor anterior <b>{{vm.formatOldValue(track.checkIn)}}</b></h6>
+                      </div>
+                    </div>
+                    <div class="clear" ng-if="track.target == 'keyResult' || track.target == 'checkIn' || track.target == 'trustLevel'">
+                      <h6>Vinculado ao objetivo <b><a class="link" ng-click="vm.mixpanel('Clicou no objetivo para visualizar seus detalhes')" href="#/objective/{{track.keyResult.objective._id || track.checkIn.keyResult.objective._id}}">{{track.objective.name || track.keyResult.objective.name || track.checkIn.keyResult.objective.name}}</a></b></h6>
+                    </div>
+                    <div class="feedComment" ng-if="track.target == 'comment'">
+                      <h6 class="feedAreaComment"><i class="fa fa-comments-o m-r-xs" aria-hidden="true"></i>"{{track.comment.content}}"</h6>
+                    </div>
+                    <!-- <div class="clear"><i class="fa fa-bullseye" aria-hidden="true"></i> {{key.objective.mainObjective.name}}</div> -->
+                    <div><i class="fa fa-calendar" ng-class="{'m-t': !vm.verifyUserCreation(track)}" aria-hidden="true"></i> {{vm.formatDate(track.insertDate)}}
+                      <i class="fa fa-clock-o" aria-hidden="true"></i> {{vm.formatTime(track.insertDate)}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-hide="!vm.loadView">
+            <div class="box-no-session-feeds" ng-if="vm.tracks.length == 0 && !vm.filter.owner.length">
+              <h3> Não há atualizações{{vm.range=='week' ? ' na última semana' : vm.range=='month' ? ' no último mês' : ''}}.</h3>
+            </div>
+          </div>
+          <div ng-hide="!vm.loadView">
+            <div class="box-no-session-feeds" ng-if="vm.tracks.length == 0 && vm.filter.owner.length">
+              <h3> Não há atualizações do(s) usuário(s) selecionado(s){{vm.range=='week' ? ' na última semana' : vm.range=='month'
+                ? ' no último mês' : ''}}.</h3>
+            </div>
+          </div>
+        </div>
+        <div class="mais-checkins" ng-if="vm.loadView">
+          <button ng-if="vm.tracks.length % 10 == 0 && !vm.hideButtons" type="button" ng-click="vm.showMore()" class="btn btn-link"><i class="fa fa-plus" aria-hidden="true"></i> Mostrar mais</button>
+        </div>
+        <div ng-if="vm.plannings.length">
+          <div class="box-no-session" ng-if="vm.objectives.length == 0 && !vm.selectedPlanning && (vm.filter.owner.length == 0 && vm.filter.tags.length == 0)">
+            <h3> Você não possui ciclo tático neste ciclo estratégico, crie um clicando no botão "+ Criar novo".</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

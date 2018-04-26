@@ -1,0 +1,15 @@
+<script type="text/ng-template" id="template-tour.html">
+<div>
+    <div class="popover-content tour-step-content" ng-bind-html="tourStep.trustedContent"></div>
+    <div class="popover-navigation tour-step-navigation">
+        <div class="btn-group">
+            <button class="btn btn-sm btn-default" ng-if="tourStep.isPrev()" ng-click="tour.prev()">Anterior</button>
+            <button class="btn btn-sm btn-default" ng-if="tourStep.isNext()" ng-click="tour.next()">Próximo</button>
+            <button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="Pausar"
+                    data-resume-text="Resume" ng-click="tour.pause()">Pausar
+            </button>
+        </div>
+        <button class="btn btn-sm btn-default" data-role="Finalizar" ng-click="tour.end()">Finalizar</button>
+    </div>
+</div>
+</script>

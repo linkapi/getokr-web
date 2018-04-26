@@ -1,0 +1,164 @@
+.h-modal-icon {
+  font-size: 66px;
+}
+
+.inmodal .color-line {
+  border-radius: 4px 4px 0 0;
+}
+
+.modal-content {
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-sistem {
+  width: 350px;
+}
+
+.modal-backdrop.in {
+  opacity: 0.4;
+}
+
+.modal-backdrop {
+  position: fixed;
+  bottom: 0;
+}
+
+.modal-dialog {
+  margin-top: 30px;
+}
+
+.modal-title {
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.modal-header {
+  padding: 20px 30px;
+  background: $color-bright;
+}
+
+.modal-body {
+  padding: 20px 30px;
+}
+
+.modal-header small {
+  color: lighten($color-text, 20%);
+}
+
+.modal-footer {
+  background: $color-bright;
+}
+
+.hmodal-info .color-line {
+  background: $color-blue;
+}
+
+.hmodal-warning .color-line {
+  background: $color-yellow;
+}
+
+.hmodal-success .color-line {
+  background: $color-green;
+}
+
+.hmodal-danger .color-line {
+  background: $color-red-deep;
+}
+
+.hmodal-info h4.modal-title {
+  color: $color-blue;
+}
+
+.hmodal-warning h4.modal-title {
+  color: $color-yellow;
+}
+
+.hmodal-success h4.modal-title {
+  color: $color-green;
+}
+
+.hmodal-danger h4.modal-title {
+  color: $color-red-deep;
+}
+
+.custom-modal-sm {
+  .modal-sm {
+    width: 350px;
+  }
+  .row {
+    .form-group {
+      margin-bottom: 5px;
+      &.input-from {
+        &:before {
+          content: 'de';
+        }
+      }
+    }
+    .custom-preference-message {
+      margin-bottom: 15px;
+    }
+    .custom-preference-message-bottom {
+      margin: 20px 0 15px;
+    }
+  }
+}
+
+.custom-de {
+  padding-top: 8px;
+  margin-left: 10px;
+}
+
+.custom-ate {
+  padding-top: 8px;
+}
+
+.custom-title {
+  font-size: 16px;
+}
+
+#input {
+  width: 65px;
+}
+
+.align-items {
+  display: flex;
+  align-items: center;
+}
+
+.modal-body-custom-grup {
+  padding: 20px 30px 20px 90px;
+  margin-left: 0px;
+}
+
+.modal-body-custom-grupo {
+  padding: 20px 0px;
+  margin-left: 0px;
+}
+
+.ui-select-bootstrap .ui-select-choices-row a {
+  display: block;
+  padding: 3px 20px;
+  clear: none;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+
+.key-message {
+  text-align: center;
+  .btn {
+    text-align: center;
+    margin: 20px 20px 20px 20px; // background-color: #86af49;
+    // border-color: #86af49;
+    transition: 0.5S ease;
+    &:hover {
+      opacity: 0.8;
+      background-color: #86af49;
+      border-color: #86af49;
+      color: #fff;
+    }
+  }
+}

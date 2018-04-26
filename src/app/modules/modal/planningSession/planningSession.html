@@ -1,0 +1,51 @@
+<div class="modal-content">
+  <div class="color-line"></div>
+  <div class="modal-header">
+    <h4 class="modal-title" ng-if="vm.type=='company'">Ciclo estratégico</h4>
+    <h4 class="modal-title" ng-if="vm.type=='objective'">Ciclo tático</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">Título</label>
+      <input type="text" class="form-control" placeholder="Informe um título para o ciclo" ng-model="vm.planning.name">
+    </div>
+    <div class="form-group">
+      <label for="comment">Descrição</label>
+      <textarea placeholder="Digite aqui sua descrição" style="resize: none;" class="form-control" ng-model="vm.planning.description"></textarea>
+    </div>
+    <div id="dpicker">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Início</label>
+          <div class="input-group">
+            <input type="text" placeholder="dd/mm/aaaa" class="form-control hover-effect" is-open="vm.startDateOpened" ng-click="vm.startDateOpened = true"
+              ng-model="vm.planning.startDate" ng-required="true" uib-datepicker-popup="dd/MM/yyyy" popup-placement="bottom"
+              datepicker-options="vm.startDatePickerOptions" show-button-bar="false" ng-change="vm.updateMinDate()" />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-calendar" ng-click="vm.startDateOpened = true">
+                  <i class="fa fa-calendar-o"></i>
+                </button>
+              </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label>Fim</label>
+          <div class="input-group">
+            <input type="text" placeholder="dd/mm/aaaa" class="form-control hover-effect" is-open="vm.endDateOpened" ng-click="vm.endDateOpened = true"
+              ng-model="vm.planning.endDate" ng-required="true" uib-datepicker-popup="dd/MM/yyyy" datepicker-append-to-body="true"
+              popup-placement="bottom" datepicker-options="vm.endDatePickerOptions" show-button-bar="false" />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-calendar" ng-click="vm.endDateOpened = true">
+                <i class="fa fa-calendar-o"></i>
+                </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-link" ng-click="vm.closeModal()">Fechar</button>
+    <button type="button" class="btn btn-primary" ng-disabled="!vm.planning.name || !vm.planning.endDate" ng-click="vm.save()">Salvar</button>
+  </div>
+</div>

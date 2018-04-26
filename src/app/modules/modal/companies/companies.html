@@ -1,0 +1,19 @@
+<div class="row ">
+  <div class="col-xs-12">
+    <div class="color-line"></div>
+    <div class="modal-content" no-validade>
+      <div class="modal-header text-center">
+        <h4 class="modal-title">Selecione a empresa</h4>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="key-message">
+            <button class="btn btn-default" ng-repeat="company in vm.items.companies" ng-click="vm.selectCompanies(company)">{{company.fantasyName}} </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

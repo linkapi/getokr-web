@@ -1,0 +1,396 @@
+.decipher-tags {
+  min-height: 24px;
+  border: 1px solid #ccc;
+  margin: 0px 10px;
+  padding: 0px 5px 5px 5px;
+}
+
+.decipher-tags .decipher-tags-taglist {
+  margin-bottom: 4px;
+  display: inline;
+}
+
+.decipher-tags .decipher-tags-taglist .decipher-tags-tag {
+  display: inline-block;
+  border-radius: 5px;
+  background-color: #EFEFEF;
+  border: 1px solid #DDD;
+  padding: 2px;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.decipher-tags .decipher-tags-taglist .decipher-tags-tag i {
+  color: black;
+  text-decoration: none;
+}
+
+.decipher-tags .decipher-tags-taglist .decipher-tags-tag.selected {
+  border: 1px solid red;
+}
+
+.decipher-tags .decipher-tags-taglist .decipher-tags-tag:hover i {
+  color: red;
+  text-decoration: none;
+}
+
+.decipher-tags .decipher-tags-taglist .decipher-tags-tag i {
+  cursor: pointer;
+}
+
+.decipher-tags .decipher-tags-input {
+  border: none;
+  outline: 0;
+}
+
+.decipher-tags .decipher-tags-invalid {
+  color: #FFF;
+}
+
+.decipher-tags .decipher-tags-controls {
+  margin-top: 8px;
+  min-height: 28px;
+}
+
+.no-tag-text {
+  display: table;
+  float: left;
+  position: relative;
+  font-size: 12px;
+  color: $color-text;
+}
+
+.tags-box {
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      border-bottom: dotted 1px $color-gray;
+      display: table;
+      width: 100%;
+      padding: 10px 0 2px;
+      span {
+        color: $color-default-theme;
+        font-weight: bold;
+        margin-right: 10px;
+        float: left;
+      }
+      p {
+        float: left;
+        background-color: $color-gray;
+        border: 1px solid $color-gray;
+        color: $color-gray;
+        display: table;
+        padding: 0 2px;
+        border-radius: 2px;
+        margin: 1px 7px 7px 0;
+        font-size: 12px;
+      }
+    }
+  }
+  .decipher-tags {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    .decipher-tags-taglist {
+      .decipher-tags-tag {
+        background-color: $tag-background;
+        border: 1px solid $tag-border;
+        color: darken($color-gray, 20%);
+        font-size: 10px;
+        float: left;
+        padding: 0 4px;
+        margin: 4px 6px 4px 0;
+        i {
+          font-size: 8px;
+          color: darken($color-gray, 30%);
+          top: -2px;
+          position: relative;
+        }
+      }
+    }
+    .decipher-tags-input {
+      border: solid 1px $soft-gray;
+      margin-top: 10px;
+    }
+    .container-fluid {
+      display: none;
+    }
+  }
+  .tags-content {
+    float: left;
+    margin: 7px 0 0;
+    &.mini {
+      margin: 0;
+      .decipher-tags-tag {
+        font-size: 9px;
+        padding: 1px 3px;
+        border-radius: 3px;
+        margin: 0px 5px 5px 0;
+        vertical-align: center;
+      }
+      &.in-project {
+        margin-top: 5px;
+      }
+      &.appointment-note {
+        margin-top: 0;
+        .decipher-tags-tag {
+          margin-top: 0;
+        }
+      }
+    }
+    &.no-delete {
+      .decipher-tags-tag {
+        i {
+          display: none;
+        }
+      }
+    }
+  }
+  #add-tag {
+    padding: 15px;
+    border-radius: 2px;
+    border: dotted 1px $soft-gray;
+    margin: 20px 0;
+    clear: both;
+    p {
+      color: $color-gray;
+      font-size: 12px;
+    }
+  }
+}
+
+.tags-box-newview {
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      border-bottom: dotted 1px $color-gray;
+      display: table;
+      width: 100%;
+      padding: 10px 0 2px;
+      span {
+        color: $color-default-theme;
+        font-weight: bold;
+        margin-right: 10px;
+        float: left;
+      }
+      p {
+        float: left;
+        background-color: $color-gray;
+        border: 1px solid $color-gray;
+        color: $color-gray;
+        display: table;
+        padding: 0 2px;
+        border-radius: 2px;
+        margin: 1px 7px 7px 0;
+        font-size: 12px;
+      }
+    }
+  }
+  .decipher-tags {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    .decipher-tags-taglist {
+      .decipher-tags-tag {
+        background-color: $tag-background;
+        border: 1px solid $tag-border;
+        color: darken($color-gray, 20%);
+        font-size: 11px;
+        float: left;
+        padding: 0 4px;
+        margin: 4px 6px 4px 0;
+        i {
+          font-size: 8px;
+          color: darken($color-gray, 30%);
+          top: -2px;
+          position: relative;
+        }
+      }
+    }
+    .decipher-tags-input {
+      border: solid 1px $soft-gray;
+      margin-top: 10px;
+    }
+    .container-fluid {
+      display: none;
+    }
+  }
+  .tags-content {
+    &.mini {
+      margin: 0;
+      .decipher-tags-tag {
+        font-size: 9px;
+        padding: 1px 3px;
+        border-radius: 3px;
+        margin: 0px 5px 5px 0;
+        vertical-align: center;
+      }
+      &.in-project {
+        margin-top: 5px;
+      }
+      &.appointment-note {
+        margin-top: 0;
+        .decipher-tags-tag {
+          margin-top: 0;
+        }
+      }
+    }
+    &.no-delete {
+      .decipher-tags-tag {
+        i {
+          display: none;
+        }
+      }
+    }
+  }
+  #add-tag {
+    padding: 15px;
+    border-radius: 2px;
+    border: dotted 1px $soft-gray;
+    margin: 20px 0;
+    clear: both;
+    p {
+      color: $color-gray;
+      font-size: 12px;
+    }
+  }
+}
+
+.appointment-tags-action {
+  cursor: pointer;
+  top: 10px;
+  left: 0px;
+  position: relative;
+  font-size: 16px !important;
+  opacity: 0;
+  color: $gray;
+  &.select {
+    opacity: 1;
+  }
+  &.in-project {
+    top: 7px;
+  }
+}
+
+.btn-remove {
+  cursor: pointer;
+  top: -2px;
+  position: relative;
+  opacity: 0;
+  color: $gray;
+  &:hover {
+    color: $color-red-deep;
+  }
+}
+
+.btn-edit {
+  cursor: pointer;
+  top: -2px;
+  position: relative;
+  opacity: 0;
+  color: $gray;
+  &:hover {
+    color: $color-blue;
+  }
+}
+
+.select {
+  opacity: 1;
+}
+
+.checkbox-container-tag {
+  label {
+    width: 100%;
+  }
+  [type*="checkbox"] {
+    height: 13px;
+    margin-left: 8px;
+    float: left;
+    position: relative;
+    width: 30px;
+  }
+  span {
+    float: left;
+  }
+  .checkbox-box {
+    width: auto;
+    position: relative;
+    margin: 0 0 5px;
+    display: table;
+    label {
+      width: auto;
+      cursor: pointer;
+      position: relative;
+      top: 0;
+      left: 0;
+      background: #fff;
+      background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+      border-radius: 2px;
+      box-shadow: inset 0 1px 1px white, 0 1px 3px rgba(0, 0, 0, 0.3);
+      &:after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: $color-gray;
+        border: solid 1px $color-gray;
+        opacity: 0;
+        border-radius: 2px;
+      }
+      &:hover::after {}
+      span {
+        float: left;
+        padding: 8px 9px 2px 9px;
+        display: block;
+        position: relative;
+        top: -2px;
+        font-size: 11px;
+        font-stretch: normal;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        opacity: 0.75;
+        color: $color-navy-blue;
+        z-index: 3;
+        font-weight: 600;
+      }
+    }
+    input[type=checkbox] {
+      visibility: hidden;
+      width: 0;
+      margin: 0;
+      height: 18px;
+      &:checked+label:after {
+        opacity: 1;
+      }
+    }
+    &.edit {
+      label {
+        &:after {
+          z-index: -2;
+        }
+        button {
+          background-color: transparent;
+          border: none;
+          padding: 5px 5px 5px 0;
+          i {
+            font-size: 11px;
+            color: $color-gray;
+            top: 0;
+            position: relative;
+          }
+          &:focus {
+            outline: 0;
+          }
+          &:hover {
+            color: $color-red;
+          }
+        }
+      }
+    }
+  }
+}

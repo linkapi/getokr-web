@@ -1,0 +1,75 @@
+<div class="container-inline">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center m-b-md transition animated fadeIn">
+        <h3>Tags</h3>
+        <small>Estão listadas todas as <strong>tags</strong> criadas até o momento, mas você também pode
+
+        <a class="link" popover-append-to-body="true" popup-placement="right" popover-is-open="vm.openPopover" uib-popover-template="'addTagTemplate.html'" popup-shown="vm.focusOnPopup()" popover-placement="right">
+        criar uma nova tag.</a>
+      </small>
+
+      </div>
+      <div class="hpanel transition animated zoomIn">
+        <div class="">
+          <div class="tags-box">
+            <ul>
+              <li ng-repeat="(key, value) in vm.tags | orderBy:'letter' | groupBy: 'letter'">
+                <div class="col-xs-1 reset-padding">
+                  <span>{{key}}</span>
+                </div>
+                <div class="col-xs-11 reset-padding checkbox-container-tag">
+                  <div class="checkbox-box edit" ng-repeat="tag in value track by $index">
+                    <label for="{{tag.name}}">
+                      <span>
+                        {{tag.name}}
+                      </span>
+                      <button class="btn btn-link btn-sm" popover-append-to-body="true" popover-is-open="tag[$index].active" uib-popover-template="'removeTag.html'" popover-placement="right">
+                            <i class="fa fa-close"></i>
+                          </button>                     
+                    </label>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div ng-show="vm.tags.length == 0" class="notification">
+              <p>
+                Você ainda não possui tags cadastradas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row text-center">
+    <button class="btn btn-link btn-sm" ng-click="vm.back()" type="button"><u>Voltar</u></button>
+  </div>
+
+  <script id="removeTag.html" type="text/ng-template">
+    <div class="popover-content">
+      <p>Você tem certeza?</p>
+      <button class="btn btn-sm btn-success" ng-click="vm.delete(tag._id); tag[$index].active = !tag[$index]; vm.mixpanel('Excluiu uma Tag')"
+        type="submit"><i class="fa fa-check"> </i></button>
+      <button class="btn btn-link btn-sm" ng-click="tag[$index].active = !tag[$index]">
+          <i class="fa fa-times"> </i>
+        </button>
+    </div>
+  </script>
+
+  <script id="addTagTemplate.html" type="text/ng-template">
+
+    <div class="popover-content">
+      <p>Adicione uma tag de cada vez</p>
+      <div class="row">
+        <div class="col-lg-8 reset-padding-right">
+          <input id="newTagName" class="form-control" ng-model="vm.newTagName" placeholder="palavra-chave" type="text"> </div>
+        <div class="col-lg-4 button-popover reset-padding">
+          <button class="btn btn-sm btn-success" ng-click="vm.createTag(); vm.openPopover = false; vm.mixpanel('Criou uma Tag')" ng-disabled="!vm.newTagName"
+            type="submit"><i class="fa fa-check"> </i></button>
+          <button class="btn btn-link btn-sm" ng-click="vm.openPopover = false"> <i class="fa fa-times"> </i> </button>
+        </div>
+      </div>
+    </div>
+
+  </script>

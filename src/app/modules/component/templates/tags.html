@@ -1,0 +1,9 @@
+<div class="decipher-tags" data-ng-mousedown="selectArea()">
+
+  <div class="decipher-tags-taglist">
+    <span data-ng-repeat="tag in tags|orderBy:orderBy"
+          data-ng-mousedown="$event.stopPropagation()">
+      <ng-include src="options.tagTemplateUrl"></ng-include>
+    </span>
+  </div>
+</div>

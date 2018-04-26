@@ -1,0 +1,43 @@
+<div class="new-view-container objectives-container">
+  <!-- <div class="sidebar-new-view transition animated fadeInLeft">
+      <span>HAHAHAHAHA</span>
+    </div> -->
+  <div class="content-new-view-teams transition animated fadeInDownBig">
+    <div class="hpanel panel-users filter-item teams">
+      <span class="myteams">Meus times</span>
+      <button class="btn btn-sm btn-link bordered teams m-t m-b" ng-click="vm.newTeam()">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                Novo time
+            </button>
+      <div class="panel-body box-list-user" ng-if="vm.teams && team.active" ng-repeat="team in vm.teams | orderBy: 'name'">
+        <div class="col-md-12" ng-click="vm.userDetails(user, $event)">
+          <div class="company-okr-title col-md-10 title">
+            <h3>{{team.name}}</h3>
+          </div>
+          <a class="result-icons icons">
+                        <i class="fa fa-pencil m-l-xs" ng-click="vm.editTeam(team)" uib-tooltip="Editar" tooltip-placement="top" tooltip-append-to-body=true></i>
+                        <i class="fa fa-archive m-l-xs" ng-click="vm.archivateTeam(team)" uib-tooltip="Arquivar" tooltip-placement="top" tooltip-append-to-body=true></i>
+                    </a>
+          <div class="row">
+            <div class="clear m-b-xs col-md-4"><a class="link" href="#/userdetails/{{team.leader._id}}">{{team.leader.firstName}} {{team.leader.lastName}}</a></div>
+            <div class="contributor-name contributors-teams col-md-8">
+              <!-- <i class="fa fa-users" style="font-size: 18px;" aria-hidden="true"></i>                                                      -->
+              <div class="initial-owner-combo" ng-if="team.leader.firstName != member.firstName || team.leader.lastName != member.lastName"
+                ng-repeat="member in team.members">
+                <span uib-tooltip="{{member.firstName}} {{member.lastName}}" tooltip-placement="right">
+                                    {{vm.getInitials(member)}}
+                                </span>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+            <div class="box-no-session-feeds" ng-if="!vm.teams.length">
+                <h3>Não há times criados. Crie um ao clicar no botão "Novo time".</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

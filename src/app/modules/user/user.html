@@ -1,0 +1,62 @@
+<div class="container has-top" ng-hide="!vm.loadView">
+  <div class="row m-t-xxxl">
+    <div class="col-md-12 float">
+      <div class="float-controls floating z-index">
+        <div class="search-user-box pull-left">
+          <div class="inn">
+            <i class="fa fa-search icon-ghost"></i>
+            <input class="search" placeholder="Buscar em meu time" ng-model="searchText">
+          </div>
+        </div>
+        <div class="button-default m-l" ui-sref="getOkr.user_new" ng-if="main.user.isAdministrator || main.user.canCreate">
+          <i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>
+          <span ng-click="vm.mixpanel('Clicou no botão novo usuário')">Novo usuário</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="hpanel" ng-if="vm.users.length == 0">
+        <div class="panel-body text-center">
+          <h5 class="title">Sem dados.</h5>
+          <p>Não há usuários para serem exibidos.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="hpanel panel-users filter-item" ng-if="vm.users.length > 0">
+            <div class="panel-body box-list-user" ng-mouseenter="options_hover=true" ng-mouseleave="options_hover=false" ng-repeat="user in vm.users | orderBy: 'firstName' | filter : searchText as filtered"
+              ng-class="{'active': activeDiv}">
+              <div class="row align-center">
+                <div class="col-md-9">
+                  <h4 class="m-b-xs pull-left">{{(!user.firstName || !user.lastName) ? user.username : user.firstName + ' ' + user.lastName}} </h4>
+                </div>
+                <div class="col-md-3">
+                  <div class="box-list-project text-right pull-right">
+                    <button class="btn btn-link" ng-class="{'select': options}" ui-sref="getOkr.edit_user({ id: user._id })" ng-click="vm.mixpanel('Clicou no botão para editar um usuário')"
+                      ng-if="main.user.isAdministrator">
+                      <i class="fa fa-pencil"></i> Editar
+                    </button>
+                    <button class="btn btn-link btn-width" ng-class="{'select': options}" ng-show="user.isActive" ng-click="vm.changeIsActive(user)"
+                      ng-if="main.user.isAdministrator">
+                      <i class="fa fa-toggle-on"></i> Ativo
+                    </button>
+                    <button class="btn btn-link btn-width" ng-class="{'select': options}" ng-show="!user.isActive" ng-click="vm.changeIsActive(user)"
+                      ng-if="main.user.isAdministrator">
+                      <i class="fa fa-toggle-off"></i> Inativo
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-body box-list-user" ng-if="filtered.length == 0">
+              <h3>Não encontramos nenhum usuário com o nome
+                <strong>"{{searchText}}"</strong>.</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

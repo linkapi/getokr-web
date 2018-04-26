@@ -1,0 +1,41 @@
+<div class="new-view-container container-diagram" id="diagram-view">
+  <link rel="stylesheet" href="style.css">
+  <div ng-if="vm.loadPlanningsView == true" class="header-diagram">
+    <div class="box-select-diagram">
+    </div>
+    <div class="box-select-diagram">
+      <ui-select theme="bootstrap" ng-model="vm.selectedCompanyPlanning" search-enabled="true" on-select="vm.changeSelectedCompanyPlanning()">
+        <ui-select-match placeholder="Selecione o ciclo estratégico">
+          <div>
+            {{vm.selectedCompanyPlanning.name}}
+          </div>
+        </ui-select-match>
+        <ui-select-choices repeat="planning in vm.companyPlannings">
+          {{planning.name}}
+        </ui-select-choices>
+      </ui-select>
+    </div>
+    <div class="box-select-diagram">
+      <ui-select theme="bootstrap" ng-model="vm.selectedPlanning" search-enabled="true" on-select="vm.changeSelectedPlanning()">
+        <ui-select-match placeholder="Selecione o ciclo tático">
+          <div>
+            {{vm.selectedPlanning.name}}
+          </div>
+        </ui-select-match>
+        <ui-select-choices repeat="childPlanning in vm.plannings">
+          {{childPlanning.name}}
+        </ui-select-choices>
+      </ui-select>
+    </div>
+  </div>
+  <div class="content-new-view transition animated slideInDown" id="orgView">
+    <div id="people"></div>
+  </div>
+</div>
+
+<script>
+  function showKey(objective) {
+    angular.element(document.getElementById('diagram-view')).scope().vm.showKeyResult(objective);
+  }
+
+</script>

@@ -1,0 +1,124 @@
+// Import Google font
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+@import url("https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css");
+// Color list
+$color-navy-blue: #34495e;
+$color-violet: #9b59b6;
+$color-blue: #3498db;
+$color-green: #8BC34A;
+$color-yellow: #ffb606;
+$color-orange: #e67e22;
+$color-red: #e74c3c;
+$color-red-deep: #c0392b;
+$color-gray: #d5d5d5;
+$color-white: #fff;
+$facebook-color: #4E6BAD;
+$googleplus-color: #d34836;
+$light-gray: #f1f4f5;
+$color-default-theme: #86AF49;
+$color-blue-custom: #58C2DC;
+$soft-gray: #d5d5d5;
+$gray: #bdc6cc; // Additional colors
+$color-text: #5F6C72;
+$color-bright: #f7f9fa;
+$color-background: #f1f3f6;
+$color-header-tables: #F1F4F9;
+$color-background-boxed: lighten($color-background,
+3%);
+$border-color: #e0e4e6;
+$dark-gray: #5F6C72;
+$tag-background: #ECEFF4;
+$tag-border: #e0e4e6;
+$white: #fff;
+.text-blue {
+  color: $color-blue;
+}
+
+.text-navy-blue {
+  color: $color-navy-blue;
+}
+
+$font-light: 300;
+$font-regular: 400;
+$font-bold: 700;
+$font-hash: "Open Sans",
+"Helvetica Neue",
+Helvetica,
+Arial,
+sans-serif;
+// Additional variables
+$menu-width: 200px;
+$main-transition: all 0.1s ease-out 0s;
+$input-border-color: $border-color;
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+@import "~animate.css/animate.min";
+@import "~bootstrap/dist/css/bootstrap.min";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import "~awesome-bootstrap-checkbox/awesome-bootstrap-checkbox";
+@import "~sweetalert/dev/sweetalert";
+@import "~ui-select/dist/select";
+@import "~angular-loading-bar/build/loading-bar.css";
+@import "~ng-dialog/css/ngDialog.min.css";
+@import "~ng-dialog/css/ngDialog-theme-default.min.css";
+@import "pe-icon-7-stroke";
+@import "getokrchart";
+@import "helper";
+@import "mediaqueries";
+@import "margins";
+@import "awesome-checkbox";
+@import "alerts";
+@import "modal";
+@import "progress_bar";
+@import "login";
+@import "contact";
+@import "calendar";
+@import "text_editor";
+@import "grid";
+@import "dropdown";
+@import "chat";
+@import "various";
+@import "buttons";
+@import "fonts";
+@import "icheck";
+@import "keyResultList";
+@import "layout";
+@import "lists";
+@import "panels";
+@import "tabs";
+@import "tooltip";
+@import "projects";
+@import "social_board";
+@import "nestable_list";
+@import "loader";
+@import "angu_complete";
+@import "label";
+@import "toggle";
+@import "datepicker";
+@import "custom";
+@import "angular_notify";
+@import "select";
+@import "reports";
+@import "navigation";
+@import "timesheet";
+@import "users";
+@import "dashboard";
+@import "diagram";
+@import "graphic";
+@import "objectives";
+@import "feed";
+@import "teams";
+@import "objective-details";
+@import "permission-switch";
+// Styles for landing page
+//angular tags
+@import "angular_tags";
+.nav-tabs.nav-justified>.active>a,
+.nav-tabs.nav-justified>.active>a:focus,
+.nav-tabs.nav-justified>.active>a:hover {
+  border-bottom-color: $color-default-theme;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}

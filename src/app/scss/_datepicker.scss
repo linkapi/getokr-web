@@ -1,0 +1,33 @@
+.dropdown-menu {
+  .btn.btn-default{
+    border: 0;
+    padding: 10px 15px;
+    border-radius:0;
+    &.active{
+      background-color:$color-default-theme;
+      color:$color-white;
+      span.text-info{
+          color:$color-white;
+      }
+    }
+
+    span.text-info{
+        color:$color-default-theme;
+    }
+  }
+
+
+}
+
+.uib-datepicker-popup {
+  padding:0;
+  *{
+    outline:0;
+  }
+}
+
+.uib-daypicker{
+  th{
+    padding:0px 0 8px 0;
+  }
+}

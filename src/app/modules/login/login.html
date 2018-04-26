@@ -1,0 +1,66 @@
+<div class="login-wrapper">
+
+  <div class="login-container transition animated slideInDown">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-center">
+          <div class="brand-login">
+            <img src="../../images/logo-getokr-white.png">
+          </div>
+        </div>
+        <div class="hpanel">
+          <div class="panel-body" ng-hide="vm.hash">
+            <form id="loginForm" ng-submit="vm.login()">
+              <fieldset ng-disabled="vm.loading">
+                <div class="form-group">
+                  <input class="form-control" id="username" name="username" placeholder="E-mail" title="Favor coloque seu login"
+                    type="text" value="" ng-model="vm.user.username" tabindex="1">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" id="password" name="password" placeholder="Senha" title="Favor digitar sua senha"
+                    type="password" value="" ng-model="vm.user.password" tabindex="2">
+                </div>
+                <button class="btn btn-theme btn-block" type="submit" autofocus>Entrar</button>
+                <div class="text-center forgot-password">
+                  <a href="/#/password/forgot">Esqueci minha senha</a>
+                </div>
+              </fieldset>
+            </form>
+            <div class="clear"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-center">
+                <strong>GetOKR</strong>
+                <br/> 2017 Copyright GetOKR
+            </div>
+        </div>
+
+          <div class="panel-body" ng-hide="!vm.hash">
+            <form id="loginForm" ng-submit="vm.addUser()">
+              <fieldset ng-disabled="vm.loading">
+                <div class="form-group">
+                  <input class="form-control" id="username" name="username" placeholder="Nome" required="" title="Favor preencha seu nome"
+                    type="text" value="" ng-model="vm.newUser.firstName" tabindex="1">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" id="username" name="username" placeholder="Sobrenome" required="" title="Favor preencha seu sobrenome"
+                    type="text" value="" ng-model="vm.newUser.lastName" tabindex="1">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" id="password" name="password" placeholder="Senha" required="" title="Favor digitar sua senha"
+                    type="password" value="" ng-model="vm.newUser.password" tabindex="2">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" id="password" name="password" placeholder="Confirme sua senha" required="" title="Favor confirmar a sua senha"
+                    type="password" value="" ng-model="vm.newPasswordConfirm" tabindex="2">
+                </div>
+                <button class="btn btn-theme btn-block" type="submit" autofocus>Confirmar novo usuário</button>
+              </fieldset>
+            </form>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

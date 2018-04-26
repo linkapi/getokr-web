@@ -1,0 +1,190 @@
+<div class="new-view-container objectives-container">
+  <div class="sidebar-new-view transition animated fadeInLeft">
+    <div class="periodo-box">
+      <h3>Ciclo estratégico
+        <button ng-click="vm.addCompanySession()" class="btn btn-link btn-sm" ng-if="main.user.isAdministrator">
+              + Criar novo
+            </button>
+      </h3>
+      <div class="transition animated fadeIn">
+        <div class="loader-planning" ng-hide="vm.loadView"></div>
+      </div>
+      <div class="list-group select-planning-list" ng-if="vm.companyPlannings.length>0" ng-hide="!vm.loadView">
+        <button type="button" ng-mouseover="vm.showCompanyPlanningIcons($index, true)" ng-class="{active : vm.selectedCompanyPlanning._id == planning._id}"
+          ng-mouseleave="vm.showCompanyPlanningIcons($index, false)" ng-repeat="planning in vm.companyPlannings" class="list-group-item"
+          ng-if="!planning.deactivate && planning.type == 'company'" ng-click="vm.filterChildPlannings(planning);vm.selectedCompanyPlanning=planning;vm.loadObjectives();vm.saveSelectedCompanyPlanning()">
+          {{planning.name}}
+          <span ng-if="!planning.isFinished" class="label label-default m-l pull-right">Ativo</span>
+          <span ng-if="planning.show && vm.user.isAdministrator && !planning.isFinished" class="animate-show">
+            <a ng-click="vm.archivatePlanning(planning)"><i class="fa fa-archive pull-right" uib-tooltip="Arquivar" tooltip-placement="top" tooltip-append-to-body=true></i></a>
+            <a ng-click="vm.editPlanningSession(planning)"><i class="fa m-r-sm fa-pencil pull-right" uib-tooltip="Editar" tooltip-placement="top" tooltip-append-to-body=true></i></a>  
+            <!--<a ng-click="vm.showEndMessage(planning);vm.resetFilter();vm.mixpanel('Clicou no ícone para Encerrar Período de Planejamento')"><i class="fa m-r-sm fa-calendar-times-o pull-right" aria-hidden="true" uib-tooltip="Encerrar" tooltip-placement="top" tooltip-append-to-body=true></i></a>-->
+          </span>
+        </button>
+      </div>
+      <div class="list-group select-planning-list" ng-if="vm.companyPlannings.length==0 && main.user.isAdministrator" ng-hide="!vm.loadView">
+        <div class="text-center">
+          Crie seu ciclo etratégico clicando no botão "+ Criar novo".
+        </div>
+      </div>
+      <div class="list-group select-planning-list" ng-if="vm.companyPlannings.length==0 && !main.user.isAdministrator" ng-hide="!vm.loadView">
+        <div class="text-center">
+          Aguarde um administrador criar um ciclo estratégico.
+        </div>
+      </div>
+      <h3>Ciclo tático
+        <button ng-click="vm.addSession()" class="btn btn-link btn-sm" ng-if="vm.companyPlannings.length>0 && main.user.isAdministrator">
+              + Criar novo
+            </button>
+      </h3>
+      <div class="transition animated fadeIn">
+        <div class="loader-planning" ng-hide="vm.loadView"></div>
+      </div>
+      <div class="list-group select-planning-list" ng-if="vm.selectedCompanyPlanning.childPlannings.length>0" ng-hide="!vm.loadView">
+        <button type="button" ng-mouseover="vm.showPlanningIcons($index, true)" ng-class="{active : vm.selectedPlanning._id == childPlanning._id}"
+          ng-mouseleave="vm.showPlanningIcons($index, false)" ng-repeat="childPlanning in vm.plannings" class="list-group-item"
+          ng-click="vm.selectedPlanning = childPlanning; vm.loadObjectives();vm.saveSelectedObjectivePlanning()">
+            {{childPlanning.name}}
+          <span ng-if="!childPlanning.isFinished" class="label label-default m-l pull-right">Ativo</span>
+          <span ng-if="childPlanning.show && vm.user.isAdministrator && !childPlanning.isFinished" class="animate-show">
+            <a ng-click="vm.archivatePlanning(childPlanning)"><i class="fa fa-archive pull-right" uib-tooltip="Arquivar" tooltip-placement="top"></i></a>
+            <a ng-click="vm.editPlanningSession(childPlanning)"><i class="fa m-r-sm fa-pencil pull-right" uib-tooltip="Editar" tooltip-placement="top"></i></a>          
+            <a ng-click="vm.showEndMessage(childPlanning)"><i class="fa m-r-sm fa-calendar-times-o pull-right" aria-hidden="true" uib-tooltip="Encerrar" tooltip-placement="top" tooltip-append-to-body=true></i></a>
+          </span>
+        </button>
+      </div>
+      <div class="list-group select-planning-list" ng-if="!vm.selectedCompanyPlanning.childPlannings.length && main.user.isAdministrator"
+        ng-hide="!vm.loadView">
+        <div class="text-center" ng-if="vm.companyPlannings.length==0">
+          Não há ciclos estratégicos criados. Crie um ciclo estratégico para poder criar um ciclo tático.
+        </div>
+        <div class="text-center" ng-if="vm.companyPlannings.length>0">
+          Crie seu ciclo tático clicando no botão "+ Criar novo".
+        </div>
+      </div>
+      <div class="list-group select-planning-list" ng-if="!vm.selectedCompanyPlanning.childPlannings.length && !main.user.isAdministrator"
+        ng-hide="!vm.loadView">
+        <div class="text-center">
+          Aguarde um administrador criar um ciclo tático.
+        </div>
+      </div>
+    </div>
+    <div class="box-tags transition animated fadeInUp">
+      <ul class="list-inline">
+        <li class="active">
+          <a href="#tab-2">Usuário</a>
+        </li>
+      </ul>
+      <div class="transition animated fadeIn">
+        <div class="loader-planning" ng-hide="vm.loadView"></div>
+      </div>
+      <div class="tab-content" ng-hide="!vm.loadView">
+        <div id="tab-2" class="tab-pane active">
+          <div ng-if="vm.users.length > 0">
+            <div class="busca-clientes m-b">
+              <i class="fa fa-search icone-absolute"></i>
+              <input placeholder="Buscar usuário" class="form-control" ng-model="searchTab1"></input>
+            </div>
+            <div class="filter-length" ng-if="vm.filter.owner.length">
+              <h6>{{vm.filter.owner.length}}{{vm.filter.owner.length > 1 ? ' usuários selecionados' : ' usuário selecionado'}}</h6>
+            </div>
+            <button class="btnreset" ng-if="vm.filter.owner.length > 0" ng-click="vm.resetFilter();vm.loadUsers()">Limpar filtro</button>
+            <div class="input-group">
+              <div class="checkbox truncate-checkbox checkbox-primary" ng-repeat="user in vm.usersFilter | filter : {customName : searchTab1} | orderBy : 'firstName'">
+                <input checklist-model="vm.filter.owner" ng-click="vm.loadUsers()" checklist-value="user._id" id="{{user._id}}" name="check"
+                  type="checkbox">
+                <label for="{{user._id}}" popover-trigger="mouseenter">
+                <span>{{vm.userHaveName(user)}}</span>
+              </label>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body text-center" ng-if="vm.users.length == 0">
+            <h5 class="title">Sem dados.</h5>
+            <p>Você ainda não possui usuários cadastrados</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-new-view">
+    <div class="row">
+      <div class="col-md-9 col-xs-12 col-sm-9">
+
+      </div>
+    </div>
+  </div>
+  <div class="transition animated fadeIn">
+    <div class="loader" ng-hide="vm.loadView"></div>
+  </div>
+
+  <div class="content-new-view transition animated fadeInDownBig">
+    <div class="tab-report" ng-hide="!vm.loadView">
+      <div class="tab-content" ng-hide="!vm.loadView">
+        <div class="tab-pane fade in active" id="tab1default">
+
+          <div class="hpanel panel-users filter-item">
+            <div class="panel-body box-list-user" ng-if="user.firstName && vm.companyPlannings.length && vm.plannings.length" ng-repeat="user in vm.users | orderBy: 'firstName' | filter : searchText as filtered">
+              <div class="row align-center">
+                <div class="col-md-12" ng-click="vm.userDetails(user, $event)">
+                  <div class="company-okr-title col-md-10">
+
+                    <h3 class="user-name pull-left">{{user.firstName}} {{user.lastName}}
+                    </h3>
+
+                    <div class="clear" ng-if="user.ownerObjectives.length>1">Responsável por {{user.ownerObjectives.length}} objetivos {{user.contributorObjectives.length>0 ? user.contributorObjectives.length>1
+                      ? ' / Contribui em ' + user.contributorObjectives.length + ' objetivos' : ' / Contribui em ' + user.contributorObjectives.length
+                      + ' objetivo' : ''}}</div>
+                    <div class="clear" ng-if="user.ownerObjectives.length==1">Responsável por {{user.ownerObjectives.length}} objetivo {{user.contributorObjectives.length>0 ? user.contributorObjectives.length>1
+                      ? ' / Contribui em ' + user.contributorObjectives.length + ' objetivos' : ' / Contribui em ' + user.contributorObjectives.length
+                      + ' objetivo' : ''}}</div>
+                    <div class="clear" ng-if="!user.ownerObjectives.length && user.contributorObjectives.length">{{user.contributorObjectives.length>0 ? user.contributorObjectives.length>1 ? 'Contribui em ' + user.contributorObjectives.length
+                      + ' objetivos' : 'Contribui em ' + user.contributorObjectives.length + ' objetivo' : ''}}</div>
+                    <div class="clear" ng-if="!user.ownerObjectives.length && !user.contributorObjectives.length">Não está vinculado à objetivos</div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="progress full progress-okr" uib-tooltip="Performance" tooltip-placement="top">
+                      <div ng-style="{'max-width': '100%', 'min-width': '35px', 'width': vm.calculateUserPerformance(user) + '%'}" ng-class="vm.changeProgressBarStatus(vm.calculateUserPerformance(user))"
+                        aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar" class="progress-bar">
+                        <span>{{!vm.calculateUserPerformance(user) ? 0 : vm.calculateUserPerformance(user)}}%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="box-no-session" ng-if="!vm.companyPlannings.length && main.user.isAdministrator">
+          <div>
+            <h3> Não existem ciclos estratégicos criados. <br>Crie um clicando em "+ Criar novo".</h3>
+            <div class="text-center m-t-lg">
+              <button ng-click="vm.addCompanySession()" type="button" class="btn btn-primary btn-lg" ng-if="main.user.isAdministrator">+ Criar novo</button>
+            </div>
+          </div>
+        </div>
+        <div class="box-no-session" ng-if="vm.companyPlannings.length && !vm.plannings.length && main.user.isAdministrator">
+          <div>
+            <h3> Não existem ciclos táticos criados. <br>Crie um clicando em "+ Criar novo".</h3>
+            <div class="text-center m-t-lg">
+              <button ng-click="vm.addSession()" type="button" class="btn btn-primary btn-lg" ng-if="main.user.isAdministrator">+ Criar novo</button>
+            </div>
+          </div>
+        </div>
+        <div class="box-no-session" ng-if="!vm.companyPlannings.length && !main.user.isAdministrator">
+          <h3> Não existem ciclos estratégicos criados. Somente usuários administradores podem criá-los. </h3>
+        </div>
+        <div class="box-no-session" ng-if="vm.companyPlannings.length && !vm.plannings.length && !main.user.isAdministrator">
+          <h3> Não existem ciclos táticos criados. Somente usuários administradores podem criá-los. </h3>
+        </div>
+      </div>
+
+      <div ng-if="vm.plannings.length">
+        <div class="box-no-session" ng-if="vm.objectives.length == 0 && !vm.selectedPlanning && (vm.filter.owner.length == 0 && vm.filter.tags.length == 0)">
+          <h3> Você não possui ciclo tático neste ciclo estratégico, crie um clicando no botão "+ Criar novo".</h3>
+        </div>
+      </div>
+    </div>
+  </div>

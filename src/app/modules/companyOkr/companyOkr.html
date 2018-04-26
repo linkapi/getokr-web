@@ -1,0 +1,289 @@
+<div class="new-view-container">
+  <div class="sidebar-new-view transition animated fadeInLeft">
+    <div class="periodo-box">
+      <h3>Ciclo estratégico
+        <button ng-click="vm.addSession()" class="btn btn-link btn-sm" ng-if="main.user.isAdministrator">
+          + Criar novo
+        </button>
+      </h3>
+      <div class="list-group select-planning-list" ng-if="vm.plannings.length>0">
+        <button type="button" ng-mouseover="vm.showPlanningIcons($index, true)" ng-mouseleave="vm.showPlanningIcons($index, false)"
+          ng-repeat="planning in vm.plannings" ng-class="{active : vm.selectedPlanning._id == planning._id}" class="list-group-item"
+          ng-if="!planning.deactivate && planning.type == 'company'" ng-click="vm.selectedPlanning = planning; vm.loadPlannings();vm.saveSelectedPlanning()">
+          {{planning.name}}
+          <span ng-if="!planning.isFinished" class="label label-default m-l pull-right">Ativo</span>
+          <span ng-if="planning.show && vm.user.isAdministrator && !planning.isFinished" class="animate-show">
+            <a ng-click="vm.archivatePlanning(planning)">
+              <i class="fa fa-archive pull-right" uib-tooltip="Arquivar" tooltip-placement="top" tooltip-append-to-body=true></i>
+            </a>
+            <a ng-click="vm.editPlanningSession(planning)">
+              <i class="fa m-r-sm fa-pencil pull-right" uib-tooltip="Editar" tooltip-placement="top" tooltip-append-to-body=true></i>
+            </a>
+            <!--<a ng-click="vm.showEndMessage(planning);vm.mixpanel('Clicou no ícone para Encerrar Período de Planejamento')"><i class="fa m-r-sm fa-calendar-times-o pull-right" aria-hidden="true" uib-tooltip="Encerrar" tooltip-placement="top" tooltip-append-to-body=true></i></a>-->
+          </span>
+        </button>
+      </div>
+      <div class="list-group select-planning-list" ng-if="vm.plannings.length==0 && main.user.isAdministrator">
+        <div class="text-center">
+          Crie seu ciclo estratégico clicando no botão "+ Criar novo".
+        </div>
+      </div>
+      <div class="list-group select-planning-list" ng-if="vm.plannings.length==0 && !main.user.isAdministrator">
+        <div class="text-center">
+          Aguarde um administrador criar um ciclo estratégico.
+        </div>
+      </div>
+      <h3>Visualizar</h3>
+      <div class="list-group select-planning-list">
+        <button type="button" ng-class="{'active': vm.filter.active}" class="list-group-item" ng-click="vm.check(true)">Ativos</button>
+        <button type="button" ng-class="{'active': !vm.filter.active}" class="list-group-item" ng-click="vm.check(false)">Arquivados</button>
+      </div>
+    </div>
+    <div class="box-tags" ng-if="vm.tagsLoaded && vm.filter.active">
+      <h3>Tags</h3>
+      <div class="filter-length" ng-if="vm.filter.tags.length">
+        <h6>{{vm.filter.tags.length}}{{vm.filter.tags.length > 1 ? ' tags selecionadas' : ' tag selecionada'}}</h6>
+      </div>
+      <button class="btnreset" ng-if="vm.filter.tags.length > 0" ng-click="vm.resetFilter();vm.loadObjectives()">Limpar filtro</button>
+      <div ng-if="vm.tags.length > 0">
+        <ul class="list-unstyled">
+          <li ng-repeat="(key, value) in vm.tags | orderBy : 'letter' | groupBy: 'letter'">
+            <div class="col-xs-2 reset-padding">
+              <span ng-if="key!='undefined'">{{key}}</span>
+            </div>
+            <div class="col-xs-10 reset-padding checkbox-container-tag">
+              <div class="checkbox-box" ng-repeat="tag in value track by $index">
+                <input checklist-model="vm.filter.tags" ng-click="vm.loadObjectives()" checklist-value="tag.name" id="{{tag.name}}" type="checkbox"
+                />
+                <label for="{{tag.name}}">
+                  <span ng-if="key!='undefined'">{{tag.name}}</span>
+                </label>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <p>
+          <center>
+            <small>
+              <a ui-sref="getOkr.tag">Gerenciar tags</a>
+            </small>
+          </center>
+        </p>
+      </div>
+      <div ng-show="vm.tags.length == 0" class="notification">
+        <p>Você ainda não possui tags cadastradas,
+          <br>
+          <br>
+          <small>
+            <a ui-sref="getOkr.tag">
+              <u>Cadastre agora</u>
+            </a>
+          </small>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="header-new-view">
+    <div class="row">
+      <div class="col-md-9 col-xs-12 col-sm-9">
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-12 text-right" ng-hide="!vm.loadView">
+        <button ng-if="vm.user.canCreate && vm.filter.active && vm.objectives.length != 0" ng-click="vm.addObjective()" class="btn btn-primary btn-add-head colored transition animated fadeInDownBig ">
+          <i class="fa fa-plus "></i> Criar
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="transition animated fadeIn ">
+    <div class="loader " ng-hide="vm.loadView "></div>
+  </div>
+  <div class="content-new-view transition animated slideInDown " ng-hide="!vm.loadView ">
+    <div class="tab-report ">
+      <ul class="nav nav-tabs ">
+        <li class="active ">
+          <a href="#tab1default " data-toggle="tab ">Objetivos estratégicos</a>
+        </li>
+      </ul>
+      <div class="tab-content ">
+        <div class="tab-pane fade in active " id="tab1default ">
+          <div class="box-no-session " ng-if="vm.objectives.length==0 && !vm.filter.tags.length && vm.filter.active && vm.plannings.length>0 && (main.user.isAdministrator || main.user.canCreate)">
+            <div>
+              <h3> Não existem objetivos estratégicos criados.
+                <br>Crie um clicando em "+ Criar".
+              </h3>
+              <button ng-if="vm.user.canCreate && vm.filter.active" ng-click="vm.addObjective()" class="btn btn-primary btn-add-head colored transition animated fadeIn ">
+                <i class="fa fa-plus "></i> Criar
+              </button>
+            </div>
+          </div>
+          <div class="box-no-session " ng-if="vm.objectives.length==0 && vm.filter.tags.length && vm.filter.active && vm.plannings.length>0 && (main.user.isAdministrator || main.user.canCreate)">
+            <div>
+              <h3> Não existem objetivos com a(s) tag(s) selecionadas no filtro.
+              </h3>
+            </div>
+          </div>
+          <div class="box-no-session " ng-if="vm.objectives.length==0 && !vm.filter.active">
+            <div>
+              <h3> Não existem objetivos estratégicos arquivados.
+              </h3>
+            </div>
+          </div>
+          <div class="box-no-session " ng-if="vm.objectives.length==0 && vm.filter.active && vm.plannings.length>0 && !main.user.isAdministrator && !main.user.canCreate">
+            <div>
+              <h3> Não existem objetivos estratégicos criados.
+                <br>Aguarde um administrador ou um gestor criá-los.
+              </h3>
+            </div>
+          </div>
+          <div class="box-no-session " ng-if="vm.objectives.length==0 && vm.filter.active && vm.plannings.length==0 && main.user.isAdministrator">
+            <div>
+              <h3> Não existem ciclos estratégicos criados.
+                <br>Crie um clicando em "+ Criar novo".
+              </h3>
+              <button ng-if="vm.filter.active && main.user.isAdministrator " ng-click="vm.addSession()" class="btn btn-primary btn-add-head colored transition animated fadeIn ">
+                <i class="fa fa-plus "></i> Criar novo
+              </button>
+            </div>
+          </div>
+          <div class="box-no-session " ng-if="vm.objectives.length==0 && vm.plannings.length==0 && !main.user.isAdministrator">
+            <div>
+              <h3> Não existem ciclos estratégicos criados.
+                <br>Aguarde o administrador criar um.
+              </h3>
+            </div>
+          </div>
+          <div class="panel-group " id="accordion " role="tablist " aria-multiselectable="true " ng-if="vm.objectives.length>0">
+            <div class="panel panel-default panel-objectives" ng-class="{'panel-objectives open':vm.isCollapsed[$index], 'panel-objectives':!vm.isCollapsed[$index]}"
+              ng-repeat="objective in vm.objectives">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 ng-class="panel-title" ng-style="{'width': !vm.user.isAdministrator ? '100%' : 'calc(100% - 50px)'}">
+                  <a data-toggle="collapse" ng-click="vm.collapseOne($index)" data-parent="#accordion" href="#collapse{{$index}}" aria-expanded="false"
+                    aria-controls="collapseOne" class="collapsed">
+                    <div>
+                      <span class="name-objective">{{objective.name}}</span>
+                      <span ng-if="objective.deactivate" class="label label-default m-l">Arquivado</span>
+                    </div>
+                    <div ng-if="!objective.deactivate" class="panel-tools">
+                      <div class="tags-box" ng-show="objective.tags.length>0">
+                        <tags ng-show="objective.tags.length>0" class="tags-content mini no-delete" data-model="objective.tags" data-options="{addable: false}"></tags>
+                      </div>
+                      <small>
+                        <i class="fa fa-chevron-down"></i>
+                      </small>
+                    </div>
+                </h4>
+                <div class="pull-right">
+                  <a ng-click="vm.editObjective(objective)" ng-if="main.user.isAdministrator == true && !objective.deactivate">
+                    <i class="fa m-r-sm fa-pencil" uib-tooltip="Editar" tooltip-placement="top" tooltip-append-to-body=true></i>
+                  </a>
+                  <a ng-click="vm.delete(objective)" ng-if="main.user.isAdministrator == true">
+                    <i class="fa fa-archive" uib-tooltip-html="objective.deactivate ? 'Reativar' : 'Arquivar'" tooltip-placement="right" tooltip-append-to-body=true></i>
+                  </a>
+                </div>
+              </div>
+              <div ng-if="objective.deactivate == false" class="progress full">
+                <div ng-style="{'max-width': '100%', 'min-width': '5%', 'width': objective.progress + '%'}" aria-valuemax="100" aria-valuemin="0"
+                  aria-valuenow="10" role="progressbar" class="progress-bar" ng-class="vm.changeProgressBarStatus(objective, 'mainObjective')">
+                  <span>{{objective.progress}}%</span>
+                </div>
+              </div>
+
+              <!--início do conteúdo do collapse  -->
+              <div id="collapse{{$index}}" class="panel-collapse collapse panel" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+                <div class="panel-body">
+                  <div class="panel-body text-center" ng-if="objective.childObjectives.length == 0">
+                    <h5 class="title">Sem dados.</h5>
+                    <p>Não existem objetivos vinculados à este objetivo estratégico.</p>
+                  </div>
+                  <div class="panel panel-default">
+                    <div ng-if="vm.verifyChildsByPlanning(objective, childObjectivePlanning)" ng-repeat="childObjectivePlanning in vm.childObjectivePlannings.plannings"
+                      class="panel-body panel-colored">
+                      <div class="title-table m-b-xs" ng-class="{'color:green': !childObjectivePlanning.isFinished}">
+                        {{childObjectivePlanning.name}}
+                        <span ng-if="!childObjectivePlanning.isFinished" class="label label-default m-l">Ativo</span>
+                      </div>
+                      <div class="panel-body" ng-if="childObjectivePlanning.isFinished && !vm.showChildObjectives">
+                        Ciclo finalizado.
+                        <a ng-click="vm.showChildObjectives = true">
+                          <u>Clique aqui</u>
+                        </a> para mostrar seus objetivos.
+                      </div>
+                      <div ng-if="!childObjectivePlanning.isFinished || vm.showChildObjectives" class="box-list-user" ng-mouseenter="options_hover=true"
+                        ng-mouseleave="options_hover=false" ng-class="{'active': activeDiv}">
+                        <table cellpadding="1" cellspacing="1" class="table table-condensed table-key-result truncate-table">
+                          <tbody>
+                            <tr ng-if="vm.filterChildsByPlanning(childObjective, childObjectivePlanning) && childObjective._id.public" ng-repeat="childObjective in objective.childObjectives track by $index">
+                              <td>
+                                <a ng-click="vm.mixpanel('Clicou nas iniciais do responsável para visualizar seus detalhes')" href="#/userdetails/{{childObjective._id.owner._id}}">
+                                  <div class="initial-owner-collapse m-l-lg ng-scope" uib-tooltip="{{childObjective._id.owner.firstName || childObjective._id.team.name}} {{childObjective._id.owner.lastName || ''}}"
+                                    tooltip-placement="top" tooltip-append-to-body=true>
+                                    {{vm.getInitials(childObjective)}}
+                                  </div>
+                                </a>
+                              </td>
+                              <td>
+                                <td>
+                                  <a class="link" ng-click="vm.objectiveDetails(childObjective, $event)">{{childObjective._id.name}}</a>
+                                </td>
+                                <td>
+                                  <i class="fa fa-tags" ng-class="{'has-tags-report': childObjective._id.tags.length > 0}" uib-tooltip="{{childObjective._id.tags.length > 0 ? childObjective._id.tags.join(', ') : ''}}"
+                                    tooltip-placement="bottom" tooltip-append-to-body=true></i>
+                                </td>
+                                <td width="150px">
+                                  <div class="progress full">
+                                    <div ng-style="{'max-width': '100%', 'min-width': '20px', 'width': childObjective._id.progress + '%'}" ng-class="vm.changeProgressBarStatus(childObjective._id, 'objective')"
+                                      aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar" class="progress-bar">
+                                      <span>{{childObjective._id.progress}}%</span>
+                                    </div>
+                                  </div>
+                                </td>
+                                </a>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-if="!childObjectivePlanning.isFinished || vm.showChildObjectives" class="box-list-user" ng-mouseenter="options_hover=true"
+                    ng-mouseleave="options_hover=false" ng-class="{'active': activeDiv}">
+                    <table cellpadding="1" cellspacing="1" class="table table-condensed table-key-result truncate-table">
+                      <tbody>
+                        <tr ng-if="vm.filterChildsByPlanning(childObjective, childObjectivePlanning)" ng-repeat="childObjective in objective.childObjectives track by $index">
+                          <td>
+                            <a class="link" ng-click="vm.mixpanel('Clicou no objetivo para visualizar seus detalhes')" href="#/objective/{{childObjective._id._id}}">{{childObjective._id.name}}</a>
+                          </td>
+                          <td>
+                            <div>
+                              {{vm.checkChildObjectiveProgress(childObjective._id)}}
+                            </div>
+                          </td>
+                          <td>
+                            <i class="fa fa-tags" ng-class="{'has-tags-report': childObjective._id.tags.length > 0}" uib-tooltip="{{childObjective._id.tags.length > 0 ? childObjective._id.tags.join(', ') : ''}}"
+                              tooltip-placement="bottom" tooltip-append-to-body=true></i>
+                          </td>
+                          <td width="150px">
+                            <div class="progress full">
+                              <div ng-style="{'max-width': '100%', 'min-width': '20px', 'width': vm.calculateObjectiveProgress(childObjective._id) + '%'}"
+                                ng-class="vm.changeProgressBarStatus(childObjective._id, 'objective')" aria-valuemax="100"
+                                aria-valuemin="0" aria-valuenow="10" role="progressbar" class="progress-bar">
+                                <span>{{vm.calculateObjectiveProgress(childObjective._id) | number:0}}%</span>
+                              </div>
+                            </div>
+                          </td>
+                          </a>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--fim do conteúdo do collapse  -->
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

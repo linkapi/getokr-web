@@ -1,0 +1,22 @@
+<div class="inmodal " data-ng-init="vm.initialize()">
+  <div class="modal-header text-center">
+    <h4 class="modal-title">Histórico de check-in</h4>
+  </div>
+  <div class="modal-body-custom-grupo">
+    <form>
+      <div class="row">
+        <div class="text-center">
+          <label class="control-label" ng-if="vm.loaded">{{vm.keyResult.name}}</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="graphic-custom">
+    <canvas id="myChart" width="100%" height="30px"></canvas>
+  </div>
+
+
+  <div class="modal-footer">
+    <button class="btn btn-link btn-sm" ng-click="vm.closeModal()" type="button">Voltar</button>
+  </div>
+</div>

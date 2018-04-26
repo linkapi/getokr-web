@@ -1,0 +1,219 @@
+<div ng-if="vm.company" class="new-view-container detail-objective-container">
+  <div class="content-new-view transition animated fadeInDownBig">
+    <div class="header-detail-objective">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="data-detail-objective">
+            <div class="avatar-detail-objective" ng-if="vm.user">
+              {{vm.getInitials()}}
+            </div>
+            <div class="info-detail-objective">
+              <h3>{{vm.user.firstName}} {{vm.user.lastName}}</h3>
+              <div class="clear">
+                Desde {{vm.formatDate(vm.user.insertDate)}}
+              </div>
+              <div class="notification-detail-objective" ng-if="vm.user._id==vm.userLogged._id" popover-title="Realize check-in nos objetivos"
+                popover-placement="bottom" uib-popover-template="'tpl.html'" popover-animation="true" popover-trigger="outsideClick"
+                popover-append-to-body="true">
+                <i style="cursor: pointer;" ng-if="vm.showNotification" class="fa fa fa-bullhorn fa-2x" aria-hidden="true"></i>
+                <span style="cursor: pointer;" ng-if="vm.showNotification" class="badge badge-danger" ng-click="vm.showObjectives = !vm.showObjectives">{{vm.notificationObjectives.length}}</span>
+              </div>
+
+              <script type="text/ng-template" id="tpl.html">
+                <div class="content-popover" style="cursor: pointer;" ng-click="vm.objectiveDetails(obj, $event)" ng-repeat="obj in vm.notificationObjectives">
+                  <div class="popover-content">
+                    {{obj.name}}
+                  </div>
+                </div>
+              </script>
+
+              <h5>{{vm.objective.owner.firstName}} {{vm.objective.owner.lastName}}</h5>
+            </div>
+          </div>
+          <div class="other-info-objective-detail">
+            <div class="progress full progress-okr custom col-md-11 container-full">
+              <div ng-style="{'max-width': '100%', 'min-width': '35px', 'width': vm.calculateUserPerformance() + '%'}" ng-class="vm.changeProgressBarStatus(vm.calculateUserPerformance())"
+                aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar" class="progress-bar">
+                <span>{{vm.calculateUserPerformance()}}%</span>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="iconInformation" popover-placement="left" uib-popover-template="'icon.html'" popover-animation="true" popover-trigger="mouseenter"
+                popover-append-to-body="true">
+                <i class="fa fa-question-circle help-icon" aria-hidden="true">
+                </i>
+              </div>
+              <script type="text/ng-template" id="icon.html">
+                <div class="informationIcon">
+                  <span>A performance do usuário é dada pela média dos progressos dos objetivos nos quais ele é responsável ou contribuidor.</span>
+                </div>
+              </script>
+            </div>
+            <div class="common-infos">
+              <div class="tags-box-newview" ng-show="vm.objective.tags.length>0">
+                <tags ng-show="vm.objective.tags.length>0" class="tags-content no-delete combo" data-model="vm.objective.tags" data-options="{addable: false}"></tags>
+              </div>
+              <div class="m-t intern-description" ng-if="vm.objective.description">
+                {{vm.objective.description}}
+              </div>
+            </div>
+          </div>
+          <div class="box-no-session" ng-if="vm.selectedPlanning && vm.objectives.ownerObjectives.length && vm.objectives.contributor.length == 0">
+            <div>
+              <h3> {{vm.user.firstName}} não está vinculado à objetivos neste ciclo tático.</h3>
+            </div>
+          </div>
+          <div class="box-no-session" ng-if="!vm.selectedPlanning || vm.selectedPlanning.deactivate || vm.selectedPlanning.isFinished">
+            <div>
+              <h3> Não há ciclos táticos criados.</h3>
+            </div>
+          </div>
+          <div class="key-results-detail" ng-if="vm.objectives.ownerObjectives.length">
+            <div class="align-center between m-b">
+              <h4 class="subtitle-key-result">
+                É responsável por
+              </h4>
+            </div>
+            <div class="hpanel panel-users filter-item">
+              <div class="panel-body box-list-user align-center" style="cursor: pointer;" ng-click="vm.objectiveDetails(ownerObj, $event)"
+                ng-repeat="ownerObj in vm.objectives.ownerObjectives" ng-if="vm.verifyPermission(ownerObj, $index, 'owner')">
+                <div class="infos-user-details">
+                  <div class="row m-l-xs">
+                    <h4>{{ownerObj.name}}</h4>
+                    <div class="tags-box" ng-show="ownerObj.tags.length>0">
+                      <tags ng-show="ownerObj.tags.length>0" class="tags-content no-delete" data-model="ownerObj.tags" data-options="{addable: false}"></tags>
+                    </div>
+                  </div>
+                  <div class="row m-l-xs">
+                    {{ownerObj.owner.firstName}} {{ownerObj.owner.lastName}}
+                  </div>
+                  <div class="tools-key-result">
+                    <div class="progress full progress-okr custom">
+                      <div ng-style="{'max-width': '100%', 'min-width': '35px', 'width': ownerObj.progress + '%'}" ng-class="vm.changeProgressBarStatus(ownerObj.progress)"
+                        aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar" class="progress-bar">
+                        <span>{{ownerObj.progress}}%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="key-results-detail" ng-if="vm.objectives.contributorObjectives.length">
+            <div class="align-center between m-b">
+              <h4 class="subtitle-key-result">
+                Contribui em
+              </h4>
+            </div>
+            <div class="hpanel panel-users filter-item">
+              <div class="panel-body box-list-user align-center" style="cursor: pointer;" ng-click="vm.objectiveDetails(contributorObj, $event)"
+                ng-repeat="contributorObj in vm.objectives.contributorObjectives" ng-if="vm.verifyPermission(contributorObj, $index, 'contributor')">
+                <div class="infos-user-details">
+                  <div class="row m-l-xs">
+                    <h4>{{contributorObj.name}}</h4>
+                    <div class="tags-box" ng-show="contributorObj.tags.length>0">
+                      <tags ng-show="contributorObj.tags.length>0" class="tags-content no-delete" data-model="contributorObj.tags" data-options="{addable: false}"></tags>
+                    </div>
+                  </div>
+                  <div class="row m-l-xs">
+                    <a class="link" href="#/userdetails/{{contributorObj.owner._id}}">{{contributorObj.owner.firstName}} {{contributorObj.owner.lastName}}</a>
+                  </div>
+                  <div class="tools-key-result">
+                    <div class="progress full progress-okr custom">
+                      <div ng-style="{'max-width': '100%', 'min-width': '35px', 'width': contributorObj.progress + '%'}" ng-class="vm.changeProgressBarStatus(contributorObj.progress)"
+                        aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar" class="progress-bar">
+                        <span>{{contributorObj.progress}}%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="key-results-detail" ng-if="vm.objectives.mainObjectives.length && (vm.objectives.ownerObjectives.length || vm.objectives.contributorObjectives.length)">
+            <div class="align-center between m-b">
+              <h4 class="subtitle-key-result">
+                Influencia em
+              </h4>
+            </div>
+            <div class="hpanel panel-users filter-item">
+              <div class="panel-body box-list-user align-center" ng-if="mainObj.hierarchy=='main'" ng-repeat="mainObj in vm.objectives.mainObjectives">
+                <div class="infos-user-details">
+                  <div>
+                    <h4>{{mainObj.name}}</h4>
+                  </div>
+                  <div class="tags-box" ng-show="mainObj.tags.length>0">
+                    <tags ng-show="mainObj.tags.length>0" class="tags-content no-delete" data-model="mainObj.tags" data-options="{addable: false}"></tags>
+                  </div>
+                  <div class="tools-key-result">
+                    <div class="progress full progress-okr custom">
+                      <div ng-style="{'max-width': '100%', 'min-width': '35px', 'width': mainObj.progress + '%'}" ng-class="vm.changeProgressBarStatus(mainObj.progress)"
+                        aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar" class="progress-bar">
+                        <span>{{mainObj.progress}}%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-md-4">
+          <div class="key-results-stats">
+            <div class="align-center between m-b">
+              <h4 class="subtitle-key-result">
+                Últimos check-ins
+              </h4>
+            </div>
+
+            <div ng-class="{'checkins-scroll' : vm.checkIns.length > 5}">
+              <div class="stat-key-result" ng-if="vm.checkIns.length>0" ng-repeat="checkIn in vm.checkIns">
+                <div>
+                  <strong>{{checkIn.key}}</strong>
+                </div>
+                <div>
+                  <i class="fa fa-user-circle-o" aria-hidden="true"></i> {{vm.user.firstName}} {{vm.user.lastName}}</div>
+                <div>
+                  <i class="fa fa-calendar" aria-hidden="true"></i> {{vm.formatDate(checkIn.insertDate)}}
+                  <i class="fa fa-clock-o" aria-hidden="true"></i> {{vm.formatTime(checkIn.insertDate)}}</div>
+
+                <div ng-if="checkIn.value && checkIn.format=='unitary'">Valor
+                  <strong>{{checkIn.value}}</strong>
+                </div>
+                <div ng-if="checkIn.value && checkIn.format=='money'">Valor
+                  <strong>{{checkIn.value|currency}}</strong>
+                </div>
+                <div ng-if="checkIn.value && checkIn.format=='percent'">Valor
+                  <strong>{{checkIn.value*100}}%</strong>
+                </div>
+                <div ng-if="!checkIn.value">
+                  <strong>{{vm.verifyLogicalKeyStatus(checkIn.key)}}</strong>
+                </div>
+              </div>
+            </div>
+            <div class="panel-body box-list-user align-center" ng-if="!vm.checkIns.length">
+              <div class="panel-body text-center">
+                <h5 class="title">Sem dados.</h5>
+                <p>{{vm.user.firstName}} ainda não fez check-ins.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+      </div>
+    </div>
+  </div>

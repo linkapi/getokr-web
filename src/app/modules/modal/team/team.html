@@ -1,0 +1,50 @@
+<div class="modal-content">
+  <div class="color-line"></div>
+  <div class="modal-header text-center">
+    <h4 class="modal-title">Time</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="key-message pull-right m-b-xs">
+          <small>* Campos obrigatórios</small>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="Name">* Nome do Time</label>
+      <input type="text" class="form-control" placeholder="Informe um título para o objetivo" ng-model="vm.team.name" placeholder="{{vm.title}}">
+    </div>
+    <div class="form-group">
+      <label for="Name">* Líder</label>
+
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <select class="form-control" ng-if="vm.team._id" ng-model="vm.team.leader._id">                            
+          <option ng-repeat="user in vm.users | orderBy: 'firstName'" ng-if="user.firstName" value="{{user._id}}">{{user.firstName}} {{user.lastName}}</option>
+          </select>
+        <select class="form-control" ng-if="!vm.team._id" ng-model="vm.team.leader">        
+          <option value="">{{vm.user.firstName}} {{vm.user.lastName}}</option>          
+          <option ng-repeat="user in vm.users | orderBy: 'firstName'" ng-if="user.firstName && user.firstName != vm.user.firstName" value="{{user._id}}">{{user.firstName}} {{user.lastName}}</option>
+        </select> 
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-12 ui-select-custom">
+        <label>* Membros </label>
+        <ui-select multiple ng-model="vm.team.members" theme="bootstrap" close-on-select="false" sortable="true" title="Members">
+          <ui-select-match placeholder="Selecione os membros...">
+            {{$item.firstName}} {{$item.lastName}}
+          </ui-select-match>
+          <ui-select-choices repeat="user in vm.users | filter:$select.search | orderBy : 'firstName'" value="{{user._id}}">
+            {{user.firstName}} {{user.lastName}}
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>          
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-link" ng-click="vm.closeModal()">Fechar</button>
+    <button type="button" class="btn btn-primary" ng-disabled="vm.checkModalInputs()" ng-click="vm.save()">Salvar</button>
+  </div>
+</div>

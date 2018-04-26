@@ -1,0 +1,1187 @@
+.get-org-chart .get-oc-c,
+.get-org-chart .get-oc-tb,
+.get-org-chart input,
+.get-org-chart table,
+.get-org-chart a {
+  font-family: 'Segoe UI', 'Segoe UI Web Regular', 'Segoe UI Symbol', 'Helvetica Neue', 'BBAlpha Sans', 'S60 Sans', Arial, 'sans-serif';
+}
+
+.get-org-chart {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  background-color: #e0ecf8;
+}
+
+.get-org-chart input,
+.get-org-chart select {
+  font-family: 'Segoe UI', 'Segoe UI Web Regular', 'Segoe UI Symbol', 'Helvetica Neue', 'BBAlpha Sans', 'S60 Sans', Arial, 'sans-serif';
+  font-size: 14px;
+  line-height: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+  color: #212121;
+  border: 1px solid #bababa;
+  background-color: rgba(255, 255, 255, .8);
+}
+
+.get-org-chart select {
+  margin-top: 11px;
+}
+
+.get-org-chart input:focus,
+.get-org-chart select:focus {
+  border-color: #5c5c5c;
+  outline: medium none;
+}
+
+.get-org-chart input:hover,
+.get-org-chart select:hover {
+  border-color: #8f8f8f;
+}
+
+.get-org-chart .get-oc-c {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.get-org-chart .get-oc-c svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.get-org-chart .get-box {
+  fill: #094ab2;
+  stroke-width: 2px;
+  stroke: #094ab2;
+}
+
+.get-org-chart .name {
+  font-size: 20px;
+  fill: #d7d7d7;
+}
+
+.get-org-chart .get-text {
+  font-size: 20px;
+  fill: #fff;
+}
+
+.get-org-chart .link {
+  stroke: #686868;
+  fill: none;
+}
+
+.get-org-chart .link-second-parent {
+  stroke: #686868;
+  fill: none;
+  stroke-dasharray: 10;
+}
+
+.get-org-chart .get-text-0 {
+  font-size: 20px;
+}
+
+.get-org-chart .get-oc-tb {
+  background-color: #ffff !important;
+  z-index: 1;
+  height: 5em;
+}
+
+.get-org-chart .get-oc-tb>div>div {
+  overflow: hidden;
+}
+
+.get-org-chart .get-oc-tb input {
+  width: 260px;
+  padding: 4px 8px;
+}
+
+.get-org-chart .get-left {}
+
+.get-org-chart .get-left-icon {
+  display: none;
+}
+
+.get-org-chart .get-right {}
+
+.get-org-chart .get-right-icon {
+  display: none;
+  width: 26px;
+  height: 26px;
+  background: url(graphics.png) -130px 0;
+  background-repeat: no-repeat;
+}
+
+.get-org-chart .get-up {}
+
+.get-org-chart .get-up-icon {
+  display: none;
+}
+
+.get-org-chart .get-down {}
+
+.get-org-chart .get-down-icon {
+  display: none;
+}
+
+.get-org-chart .get-oc-tb a.get-plus {
+  float: right;
+  margin: 19px 10px 0 3px;
+  border: 0;
+  background: url(https://s3.amazonaws.com/getokr-storage/zoom.png) 0px 0;
+}
+
+.get-org-chart .get-oc-tb a.get-minus {
+  float: right;
+  margin: 19px 10px 0 3px;
+  background: url(https://s3.amazonaws.com/getokr-storage/zoom-out.png) 0px 0;
+}
+
+.get-org-chart .get-oc-tb a.get-next {
+  margin: 19px 3px 0 3px;
+  background: url(https://s3.amazonaws.com/getokr-storage/next.png) 0px 0;
+}
+
+.get-org-chart .get-oc-tb a.get-prev {
+  margin: 19px 3px 0 3px;
+  background: url(https://s3.amazonaws.com/getokr-storage/prev.png) 0px 0;
+}
+
+.get-org-chart .get-oc-tb a.get-grid-view {
+  float: right;
+  margin: 11px 10px 0 3px;
+  background: url(graphics.png) -208px 0;
+}
+
+.get-org-chart .get-oc-tb a.get-print {
+  float: right;
+  margin: 11px 10px 0 3px;
+  background: url(graphics.png) -312px 0;
+}
+
+.get-org-chart .get-oc-tb a {
+  display: block;
+  display: none;
+  float: left;
+  width: 26px;
+  height: 26px;
+  text-decoration: none;
+  border: 0;
+}
+
+.get-org-chart .get-oc-tb input {
+  border-color: #e0e4e6;
+  display: none;
+  float: left;
+  margin: 16px 10px 0 8px;
+}
+
+.get-org-chart .get-oc-tb {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  border-bottom: 2px solid #c7c7c7;
+  background-color: #094ab2;
+}
+
+.get-org-chart .get-oc-tb>div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.get-org-chart .get-oc-tb .get-disabled {
+  cursor: default;
+  opacity: .5;
+}
+
+.get-org-chart .get-oc-tb a.get-prev-page {
+  display: inherit;
+  margin: 11px 3px 0 17px;
+  background: url(graphics.png) -156px 0;
+}
+
+.get-org-chart .get-oc-v {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.get-org-chart .get-oc-v .get-image-pane {
+  float: left;
+  width: 96%;
+  max-width: 600px;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+
+@media(max-width:700px) {
+  .get-org-chart .get-oc-v .get-image-pane {
+    width: 100%;
+    margin-top: 0;
+    margin-left: 0;
+  }
+}
+
+.get-org-chart .get-oc-v .get-image-pane img {
+  width: 100%;
+}
+
+.get-org-chart .get-oc-v .get-data-pane {
+  float: left;
+  width: 96%;
+  max-width: 600px;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+
+.get-org-chart .get-oc-v .get-label {
+  font-size: 12px;
+  line-height: 23px;
+  color: #2b2b2b;
+}
+
+.get-org-chart .get-user-logo {
+  width: 100%;
+  fill: #cedbf0;
+}
+
+.get-org-chart .get-oc-g {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.get-org-chart .get-oc-g table {
+  width: 100%;
+}
+
+.get-org-chart .get-oc-g th {
+  padding: 3px 0 3px 7px;
+  text-align: left;
+  text-transform: uppercase;
+  color: white;
+}
+
+.get-org-chart .get-oc-g td {
+  font-weight: normal;
+  padding: 3px 0 3px 7px;
+  text-align: left;
+  border-right: 1px solid #c7c7c7;
+  border-bottom: 1px solid #c7c7c7;
+}
+
+.get-org-chart .get-oc-g .get-odd td {
+  background-color: #f5f5f5;
+}
+
+.get-darkred.get-org-chart {
+  background-color: #ffe3ea;
+}
+
+.get-darkred.get-org-chart .get-oc-tb {
+  background-color: #ac193d;
+}
+
+.get-darkred.get-org-chart .get-user-logo {
+  fill: #ffb9ca;
+}
+
+.get-darkred.get-org-chart .get-oc-g th {
+  background-color: #ac193d;
+}
+
+.get-darkred.get-org-chart .get-def-stop-1 {
+  stop-color: #851d36;
+}
+
+.get-darkred.get-org-chart .get-def-stop-2 {
+  stop-color: #ac193d;
+}
+
+.get-darkred .get-box,
+g.get-darkred .get-box {
+  fill: #ac193d;
+  stroke: #c60031;
+}
+
+.get-pink.get-org-chart {
+  background-color: #ffdff4;
+}
+
+.get-pink.get-org-chart .get-oc-tb {
+  background-color: #dc4fad;
+}
+
+.get-pink.get-org-chart .get-user-logo {
+  fill: #ffafe4;
+}
+
+.get-pink.get-org-chart .get-oc-g th {
+  background-color: #dc4fad;
+}
+
+.get-pink.get-org-chart .get-def-stop-1 {
+  stop-color: #a73f84;
+}
+
+.get-pink.get-org-chart .get-def-stop-2 {
+  stop-color: #dc4fad;
+}
+
+.get-pink .get-box,
+g.get-pink .get-box {
+  fill: #dc4fad;
+  stroke: #a6006e;
+}
+
+.get-darkorange.get-org-chart {
+  background-color: #ffeae5;
+}
+
+.get-darkorange.get-org-chart .get-oc-tb {
+  background-color: #d24726;
+}
+
+.get-darkorange.get-org-chart .get-user-logo {
+  fill: #ffcbbf;
+}
+
+.get-darkorange.get-org-chart .get-oc-g th {
+  background-color: #d24726;
+}
+
+.get-darkorange.get-org-chart .get-def-stop-1 {
+  stop-color: #a3381f;
+}
+
+.get-darkorange.get-org-chart .get-def-stop-2 {
+  stop-color: #d24726;
+}
+
+.get-darkorange .get-box,
+g.get-darkorange .get-box {
+  fill: #d24726;
+  stroke: #d82b00;
+}
+
+.get-orange.get-org-chart {
+  background-color: #ffefe5;
+}
+
+.get-orange.get-org-chart .get-oc-tb {
+  background-color: #ff8f32;
+}
+
+.get-orange.get-org-chart .get-user-logo {
+  fill: #ffd9bf;
+}
+
+.get-orange.get-org-chart .get-oc-g th {
+  background-color: #ff8f32;
+}
+
+.get-orange.get-org-chart .get-def-stop-1 {
+  stop-color: #c66f27;
+}
+
+.get-orange.get-org-chart .get-def-stop-2 {
+  stop-color: #ff8f32;
+}
+
+.get-orange .get-box,
+g.get-orange .get-box {
+  fill: #ff8f32;
+  stroke: #d85a00;
+}
+
+.get-lightgreen.get-org-chart {
+  background-color: #f7ffe5;
+}
+
+.get-lightgreen.get-org-chart .get-oc-tb {
+  background-color: #82ba00;
+}
+
+.get-lightgreen.get-org-chart .get-user-logo {
+  fill: #ebffbf;
+}
+
+.get-lightgreen.get-org-chart .get-oc-g th {
+  background-color: #82ba00;
+}
+
+.get-lightgreen.get-org-chart .get-def-stop-1 {
+  stop-color: #587e00;
+}
+
+.get-lightgreen.get-org-chart .get-def-stop-2 {
+  stop-color: #82ba00;
+}
+
+.get-lightgreen .get-box,
+g.get-lightgreen .get-box {
+  fill: #82ba00;
+  stroke: #97d800;
+}
+
+.get-green.get-org-chart {
+  background-color: #e5ffe9;
+}
+
+.get-green.get-org-chart .get-oc-tb {
+  background-color: #008a17;
+}
+
+.get-green.get-org-chart .get-user-logo {
+  fill: #bfffca;
+}
+
+.get-green.get-org-chart .get-oc-g th {
+  background-color: #008a17;
+}
+
+.get-green.get-org-chart .get-def-stop-1 {
+  stop-color: #00510d;
+}
+
+.get-green.get-org-chart .get-def-stop-2 {
+  stop-color: #008a17;
+}
+
+.get-green .get-box,
+g.get-green .get-box {
+  fill: #008a17;
+  stroke: #00d827;
+}
+
+.get-lightteal.get-org-chart {
+  background-color: #e5ffff;
+}
+
+.get-lightteal.get-org-chart .get-oc-tb {
+  background-color: #03b3b2;
+}
+
+.get-lightteal.get-org-chart .get-user-logo {
+  fill: #bfffff;
+}
+
+.get-lightteal.get-org-chart .get-oc-g th {
+  background-color: #03b3b2;
+}
+
+.get-lightteal.get-org-chart .get-def-stop-1 {
+  stop-color: #027e7d;
+}
+
+.get-lightteal.get-org-chart .get-def-stop-2 {
+  stop-color: #03b3b2;
+}
+
+.get-lightteal .get-box,
+g.get-lightteal .get-box {
+  fill: #03b3b2;
+  stroke: #00d8d8;
+}
+
+.get-teal.get-org-chart {
+  background-color: #e5fbff;
+}
+
+.get-teal.get-org-chart .get-oc-tb {
+  background-color: #008299;
+}
+
+.get-teal.get-org-chart .get-user-logo {
+  fill: #bff6ff;
+}
+
+.get-teal.get-org-chart .get-oc-g th {
+  background-color: #008299;
+}
+
+.get-teal.get-org-chart .get-def-stop-1 {
+  stop-color: #01505e;
+}
+
+.get-teal.get-org-chart .get-def-stop-2 {
+  stop-color: #008299;
+}
+
+.get-teal .get-box,
+g.get-teal .get-box {
+  fill: #008299;
+  stroke: #00bbd8;
+}
+
+.get-lightblue.get-org-chart {
+  background-color: #e5f2ff;
+}
+
+.get-lightblue.get-org-chart .get-oc-tb {
+  background-color: #5db2ff;
+}
+
+.get-lightblue.get-org-chart .get-user-logo {
+  fill: #bfe1ff;
+}
+
+.get-lightblue.get-org-chart .get-oc-g th {
+  background-color: #5db2ff;
+}
+
+.get-lightblue.get-org-chart .get-def-stop-1 {
+  stop-color: #437eb4;
+}
+
+.get-lightblue.get-org-chart .get-def-stop-2 {
+  stop-color: #5db2ff;
+}
+
+.get-lightblue .get-box,
+g.get-lightblue .get-box {
+  fill: #5db2ff;
+  stroke: #0073d8;
+}
+
+.get-blue.get-org-chart {
+  background-color: #e5f4ff;
+}
+
+.get-blue.get-org-chart .get-oc-tb {
+  background-color: #0072c6;
+}
+
+.get-blue.get-org-chart .get-user-logo {
+  fill: #bfe5ff;
+}
+
+.get-blue.get-org-chart .get-oc-g th {
+  background-color: #0072c6;
+}
+
+.get-blue.get-org-chart .get-def-stop-1 {
+  stop-color: #015593;
+}
+
+.get-blue.get-org-chart .get-def-stop-2 {
+  stop-color: #0072c6;
+}
+
+.get-blue .get-box,
+g.get-blue .get-box {
+  fill: #0072c6;
+  stroke: #0081d8;
+}
+
+.get-darkpurple.get-org-chart {
+  background-color: #e9e1ff;
+}
+
+.get-darkpurple.get-org-chart .get-oc-tb {
+  background-color: #4617b4;
+}
+
+.get-darkpurple.get-org-chart .get-user-logo {
+  fill: #cbb7ff;
+}
+
+.get-darkpurple.get-org-chart .get-oc-g th {
+  background-color: #4617b4;
+}
+
+.get-darkpurple.get-org-chart .get-def-stop-1 {
+  stop-color: #361583;
+}
+
+.get-darkpurple.get-org-chart .get-def-stop-2 {
+  stop-color: #4617b4;
+}
+
+.get-darkpurple .get-box,
+g.get-darkpurple .get-box {
+  fill: #4617b4;
+  stroke: #3600c2;
+}
+
+.get-purple.get-org-chart {
+  background-color: #fcddff;
+}
+
+.get-purple.get-org-chart .get-oc-tb {
+  background-color: #8c0095;
+}
+
+.get-purple.get-org-chart .get-user-logo {
+  fill: #f9a9ff;
+}
+
+.get-purple.get-org-chart .get-oc-g th {
+  background-color: #8c0095;
+}
+
+.get-purple.get-org-chart .get-def-stop-1 {
+  stop-color: #610167;
+}
+
+.get-purple.get-org-chart .get-def-stop-2 {
+  stop-color: #8c0095;
+}
+
+.get-purple .get-box,
+g.get-purple .get-box {
+  fill: #8c0095;
+  stroke: #880092;
+}
+
+.get-mediumdarkblue.get-org-chart {
+  background-color: #e5f3ff;
+}
+
+.get-mediumdarkblue.get-org-chart .get-oc-tb {
+  background-color: #004b8b;
+}
+
+.get-mediumdarkblue.get-org-chart .get-user-logo {
+  fill: #bfe3ff;
+}
+
+.get-mediumdarkblue.get-org-chart .get-oc-g th {
+  background-color: #004b8b;
+}
+
+.get-mediumdarkblue.get-org-chart .get-def-stop-1 {
+  stop-color: #002c51;
+}
+
+.get-mediumdarkblue.get-org-chart .get-def-stop-2 {
+  stop-color: #004b8b;
+}
+
+.get-mediumdarkblue .get-box,
+g.get-mediumdarkblue .get-box {
+  fill: #004b8b;
+  stroke: #007ad8;
+}
+
+.get-darkblue.get-org-chart {
+  background-color: #e5efff;
+}
+
+.get-darkblue.get-org-chart .get-oc-tb {
+  background-color: #001940;
+}
+
+.get-darkblue.get-org-chart .get-user-logo {
+  fill: #bfd8ff;
+}
+
+.get-darkblue.get-org-chart .get-oc-g th {
+  background-color: #001940;
+}
+
+.get-darkblue.get-org-chart .get-def-stop-1 {
+  stop-color: #000711;
+}
+
+.get-darkblue.get-org-chart .get-def-stop-2 {
+  stop-color: #001940;
+}
+
+.get-darkblue .get-box,
+g.get-darkblue .get-box {
+  fill: #001940;
+  stroke: #0056d8;
+}
+
+.get-cordovan.get-org-chart {
+  background-color: #ffe5e5;
+}
+
+.get-cordovan.get-org-chart .get-oc-tb {
+  background-color: #570000;
+}
+
+.get-cordovan.get-org-chart .get-user-logo {
+  fill: #ffbfbf;
+}
+
+.get-cordovan.get-org-chart .get-oc-g th {
+  background-color: #570000;
+}
+
+.get-cordovan.get-org-chart .get-def-stop-1 {
+  stop-color: #2a0000;
+}
+
+.get-cordovan.get-org-chart .get-def-stop-2 {
+  stop-color: #570000;
+}
+
+.get-cordovan .get-box,
+g.get-cordovan .get-box {
+  fill: #570000;
+  stroke: #280000;
+}
+
+.get-darkcordovan.get-org-chart {
+  background-color: #ffe5e5;
+}
+
+.get-darkcordovan.get-org-chart .get-oc-tb {
+  background-color: #380000;
+}
+
+.get-darkcordovan.get-org-chart .get-user-logo {
+  fill: #ffbfbf;
+}
+
+.get-darkcordovan.get-org-chart .get-oc-g th {
+  background-color: #380000;
+}
+
+.get-darkcordovan.get-org-chart .get-def-stop-1 {
+  stop-color: #140000;
+}
+
+.get-darkcordovan.get-org-chart .get-def-stop-2 {
+  stop-color: #380000;
+}
+
+.get-darkcordovan .get-box,
+g.get-darkcordovan .get-box {
+  fill: #380000;
+  stroke: #0e0000;
+}
+
+.get-neutralgrey.get-org-chart {
+  background-color: #e6e6e6;
+}
+
+.get-neutralgrey.get-org-chart .get-oc-tb {
+  background-color: #585858;
+}
+
+.get-neutralgrey.get-org-chart .get-user-logo {
+  fill: #ccc;
+}
+
+.get-neutralgrey.get-org-chart .get-oc-g th {
+  background-color: #585858;
+}
+
+.get-neutralgrey.get-org-chart .get-def-stop-1 {
+  stop-color: #2b2b2b;
+}
+
+.get-neutralgrey.get-org-chart .get-def-stop-2 {
+  stop-color: #585858;
+}
+
+.get-neutralgrey .get-box,
+g.get-neutralgrey .get-box {
+  fill: #585858;
+  stroke: #1a1a1a;
+}
+
+.get-black.get-org-chart {
+  background-color: #ccc;
+}
+
+.get-black.get-org-chart .get-oc-tb {
+  background-color: #000;
+}
+
+.get-black.get-org-chart .get-user-logo {
+  fill: #808080;
+}
+
+.get-black.get-org-chart .get-oc-g th {
+  background-color: #000;
+}
+
+.get-black.get-org-chart .get-def-stop-1 {
+  stop-color: #000;
+}
+
+.get-black.get-org-chart .get-def-stop-2 {
+  stop-color: #000;
+}
+
+.get-black .get-box,
+g.get-black .get-box {
+  fill: #000;
+  stroke: #000;
+}
+
+.get-cassandra .get-box.get-cassandra-border {
+  fill: none;
+  stroke-width: 6;
+}
+
+.get-cassandra.get-darkred .get-text.get-cassandra-text {
+  fill: #ac193d;
+}
+
+.get-cassandra.get-pink .get-text.get-cassandra-text {
+  fill: #dc4fad;
+}
+
+.get-cassandra.get-darkorange .get-text.get-cassandra-text {
+  fill: #d24726;
+}
+
+.get-cassandra.get-orange .get-text.get-cassandra-text {
+  fill: #ff8f32;
+}
+
+.get-cassandra.get-lightgreen .get-text.get-cassandra-text {
+  fill: #82ba00;
+}
+
+.get-cassandra.get-green .get-text.get-cassandra-text {
+  fill: #008a17;
+}
+
+.get-cassandra.get-lightteal .get-text.get-cassandra-text {
+  fill: #03b3b2;
+}
+
+.get-cassandra.get-teal .get-text.get-cassandra-text {
+  fill: #008299;
+}
+
+.get-cassandra.get-lightblue .get-text.get-cassandra-text {
+  fill: #5db2ff;
+}
+
+.get-cassandra.get-blue .get-text.get-cassandra-text {
+  fill: #0072c6;
+}
+
+.get-cassandra.get-darkpurple .get-text.get-cassandra-text {
+  fill: #4617b4;
+}
+
+.get-cassandra.get-purple .get-text.get-cassandra-text {
+  fill: #8c0095;
+}
+
+.get-cassandra.get-mediumdarkblue .get-text.get-cassandra-text {
+  fill: #004b8b;
+}
+
+.get-cassandra.get-darkblue .get-text.get-cassandra-text {
+  fill: #001940;
+}
+
+.get-cassandra.get-cordovan .get-text.get-cassandra-text {
+  fill: #570000;
+}
+
+.get-cassandra.get-darkcordovan .get-text.get-cassandra-text {
+  fill: #380000;
+}
+
+.get-cassandra.get-neutralgrey .get-text.get-cassandra-text {
+  fill: #585858;
+}
+
+.get-cassandra.get-black .get-text.get-cassandra-text {
+  fill: #000;
+}
+
+.get-deborah .get-box {
+  fill-opacity: 0;
+  stroke-width: 10;
+}
+
+.get-deborah.get-darkred .get-text-pane {
+  fill: #ac193d;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-pink .get-text-pane {
+  fill: #dc4fad;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-darkorange .get-text-pane {
+  fill: #d24726;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-orange .get-text-pane {
+  fill: #ff8f32;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-lightgreen .get-text-pane {
+  fill: #82ba00;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-green .get-text-pane {
+  fill: #008a17;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-lightteal .get-text-pane {
+  fill: #03b3b2;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-teal .get-text-pane {
+  fill: #008299;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-lightblue .get-text-pane {
+  fill: #5db2ff;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-blue .get-text-pane {
+  fill: #0072c6;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-darkpurple .get-text-pane {
+  fill: #4617b4;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-purple .get-text-pane {
+  fill: #8c0095;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-mediumdarkblue .get-text-pane {
+  fill: #004b8b;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-darkblue .get-text-pane {
+  fill: #001940;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-cordovan .get-text-pane {
+  fill: #570000;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-darkcordovan .get-text-pane {
+  fill: #380000;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-neutralgrey .get-text-pane {
+  fill: #585858;
+  fill-opacity: .5;
+}
+
+.get-deborah.get-black .get-text-pane {
+  fill: #000;
+  fill-opacity: .5;
+}
+
+.get-helen.get-darkred .get-text.get-helen-text {
+  fill: #ac193d;
+}
+
+.get-helen.get-pink .get-text.get-helen-text {
+  fill: #dc4fad;
+}
+
+.get-helen.get-darkorange .get-text.get-helen-text {
+  fill: #d24726;
+}
+
+.get-helen.get-orange .get-text.get-helen-text {
+  fill: #ff8f32;
+}
+
+.get-helen.get-lightgreen .get-text.get-helen-text {
+  fill: #82ba00;
+}
+
+.get-helen.get-green .get-text.get-helen-text {
+  fill: #008a17;
+}
+
+.get-helen.get-lightteal .get-text.get-helen-text {
+  fill: #03b3b2;
+}
+
+.get-helen.get-teal .get-text.get-helen-text {
+  fill: #008299;
+}
+
+.get-helen.get-lightblue .get-text.get-helen-text {
+  fill: #5db2ff;
+}
+
+.get-helen.get-blue .get-text.get-helen-text {
+  fill: #0072c6;
+}
+
+.get-helen.get-darkpurple .get-text.get-helen-text {
+  fill: #4617b4;
+}
+
+.get-helen.get-purple .get-text.get-helen-text {
+  fill: #8c0095;
+}
+
+.get-helen.get-mediumdarkblue .get-text.get-helen-text {
+  fill: #004b8b;
+}
+
+.get-helen.get-darkblue .get-text.get-helen-text {
+  fill: #001940;
+}
+
+.get-helen.get-cordovan .get-text.get-helen-text {
+  fill: #570000;
+}
+
+.get-helen.get-darkcordovan .get-text.get-helen-text {
+  fill: #380000;
+}
+
+.get-helen.get-neutralgrey .get-text.get-helen-text {
+  fill: #585858;
+}
+
+.get-helen.get-black .get-text.get-helen-text {
+  fill: #000;
+}
+
+.get-org-chart rect.get-box {
+  fill: #ffffff;
+  stroke: #D9D9D9;
+}
+
+.get-org-chart .get-text.get-text-0 {
+  fill: #262626;
+}
+
+.get-org-chart .get-text.get-text-1 {
+  font-size: 20px;
+  fill: #262626;
+}
+
+.get-org-chart .get-text.get-text-2 {
+  font-size: 20px;
+  fill: #262626;
+}
+
+.get-org-chart .get-text.get-text-3 {
+  font-size: 18px;
+  fill: #262626;
+}
+
+.get-org-chart .get-text.get-text-4 {
+  fill: #262626;
+}
+
+.get-green.get-org-chart {
+  background-color: #f2f2f2;
+}
+
+.more-info {
+  fill: #18879B;
+}
+
+.btn-key path {
+  fill: #F8F8F8;
+  stroke: #D9D9D9;
+}
+
+.btn-key {
+  cursor: pointer;
+}
+
+.btn-key circle {
+  fill: #555555;
+}
+
+.btn-key line {
+  stroke-width: 3px;
+  stroke: #ffffff;
+}
+
+.get-btn {
+  cursor: pointer;
+  fill: white;
+  stroke-width: 1px;
+  stroke: #686868;
+}
+
+.nobtn-key {
+  display: none;
+}
+
+.get-btn-line {
+  stroke-width: 2px;
+  stroke: #686868;
+}
+
+.text-underline {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.fontMain {
+  font-family: monospace;
+  font-size: 23px;
+  fill: #262626;
+}
+
+.content-new-view {
+  margin-left: 0px;
+  padding-right: 0;
+  height: 100%;
+}
+
+#svgContainer {
+  overflow: visible;
+  height: 100%;
+}
+
+#people {
+  height: 100%;
+}
+
+.get-oc-c {
+  top: 70px !important;
+  overflow: auto !important;
+  height: 100%;
+}
+
+svg {
+  overflow: visible !important;
+  left: 10px;
+  height: 100%;
+}
+
+@supports(-ms-ime-align:auto) {
+  * {
+    touch-action: none;
+  }
+  .get-org-chart {
+    touch-action: chained;
+  }
+}

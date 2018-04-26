@@ -1,0 +1,29 @@
+.filter-box{
+  margin:15px 0;
+  background: $white;
+
+  .ui-select-container {
+    margin: auto;
+    display: table;
+  }
+
+  .input-group{
+    &.padding-left{
+      padding-left:15px;
+    }
+
+    input.form-control.hover-effect{
+      font-size: 12px;
+      height:30px;
+      border-color:#e4e5e7 !important;
+      color:#999;
+    }
+    span.input-group-btn{
+      button.btn-default{
+        height: 30px;
+        padding: 4px 8px;
+        color: #999;
+      }
+    }
+  }
+}

@@ -1,0 +1,197 @@
+<div class="row ">
+  <div class="col-xs-12">
+    <div class="color-line"></div>
+    <div class="modal-content" no-validade>
+      <div class="modal-header">
+        <h4 class="modal-title">Resultado chave</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="key-message pull-right m-b-xs">
+              <small>* Campos obrigatórios</small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <label for="key-result">* Título</label><i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Digite o nome deste resultado chave, exemplo: aumentar a conversão de clientes em 15%"
+              tooltip-placement="right"></i>
+            <input class="form-control" type="text" placeholder="Insira o nome aqui" ng-model="vm.keyResult.name" tabindex="1">
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-12">
+            <label for="key-result">* Tipo de resultado</label><i class="fa fa-question-circle help-icon" aria-hidden="true"
+              uib-tooltip="Escolha entre resultado numérico (1, 2, 100), ou resultado lógico (verdadeiro ou falso)"
+              tooltip-placement="right"></i>
+            <select class="form-control input-md" ng-model="vm.keyResult.type" tabindex="2">
+                <option value="">Selecione o tipo</option>
+                <option value="number">Numérico</option>
+                <option value="boolean">Lógico</option>
+            </select>
+          </div>
+        </div>
+        <hr ng-if="vm.keyResult.type">
+        <div class="form-group" ng-if="vm.keyResult.type == 'number'">
+          <div class="row">
+            <div class="col-md-12">
+              <label for="esperado">* Responsável</label><i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Defina o usuário resposável por este resultado chave"
+                tooltip-placement="right"></i>
+              <div class="form-group" ng-if="vm.hierarchy != 'main'">
+                <div class="input-group" ng-if="!vm.keyResult._id">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <select class="form-control" ng-model="vm.keyResult.owner" id="selectMyOkr" tabindex="3">
+                  <option ng-repeat="user in vm.users | orderBy: 'firstName'" ng-if="user.firstName" value="{{user._id}}">{{user.firstName}} {{user.lastName}}</option>
+                </select>
+                </div>
+                <div class="input-group" ng-if="vm.keyResult._id">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <select class="form-control" ng-model="vm.keyResult.owner" id="selectMyOkr" tabindex="3">
+                  <option ng-repeat="user in vm.users | orderBy: 'firstName'" ng-if="user.firstName" value="{{user._id}}">{{user.firstName}} {{user.lastName}}</option>
+                </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <label for="esperado">Formato</label>
+              <select class="form-control" ng-model="vm.keyResult.format" tabindex="4">
+                <option value="unitary">Número</option>
+                <option value="money">Moeda</option>
+                <option value="percent">Porcentagem</option>
+            </select>
+            </div>
+            <div class="col-sm-6">
+              <label for="esperado">* Critério</label><i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Escolha entre definir o valor alvo como sendo o valor mínimo (Maior ou igual a) ou máximo (Menor ou igual a)"
+                tooltip-placement="top"></i>
+              <select class="form-control" ng-model="vm.keyResult.criteria" tabindex="5">
+                <option disabled value="">Selecione</option>
+                <option value="atLeast">Maior ou igual a</option>
+                <option value="atMost">Menor ou igual a</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class=form-group>
+          <div ng-if="vm.keyResult.type == 'number'">
+            <div class="row">
+              <div ng-if="vm.keyResult.type == 'number' && vm.keyResult._id && vm.keyResult.criteria">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="realizado">* Realizado</label>
+                    <input ng-if="vm.keyResult.format=='money' && vm.keyResult.criteria=='atLeast'" class="form-control input-md" min="0" placeholder="R$ 200,00"
+                      ng-model="vm.keyResult.currentValue" ui-money-mask tabindex="6" ng-disabled="vm.keyResult.inicialValue!=undefined && vm.oldCriteria==vm.keyResult.criteria">
+                    <input ng-if="vm.keyResult.format=='money' && vm.keyResult.criteria=='atMost'" class="form-control input-md" min="0" placeholder="R$ 5.000,00"
+                      ng-model="vm.keyResult.currentValue" ui-money-mask tabindex="6" ng-disabled="vm.keyResult.inicialValue!=undefined && vm.oldCriteria==vm.keyResult.criteria">
+                    <input ng-if="vm.keyResult.format=='unitary' && vm.keyResult.criteria=='atLeast'" class="form-control input-md" min="0" placeholder="2"
+                      ng-model="vm.keyResult.currentValue" type="number" step="0.00" tabindex="6" ng-disabled="vm.keyResult.inicialValue!=undefined && vm.oldCriteria==vm.keyResult.criteria">
+                    <input ng-if="vm.keyResult.format=='unitary' && vm.keyResult.criteria=='atMost'" class="form-control input-md" min="0" placeholder="50"
+                      ng-model="vm.keyResult.currentValue" type="number" step="0.00" tabindex="6" ng-disabled="vm.keyResult.inicialValue!=undefined && vm.oldCriteria==vm.keyResult.criteria">
+                    <input ng-if="vm.keyResult.format=='percent' && vm.keyResult.criteria=='atLeast'" class="form-control input-md" min="0" placeholder="10%"
+                      ng-model="vm.keyResult.currentValue" ui-percentage-mask="0" tabindex="6" ng-disabled="vm.keyResult.inicialValue!=undefined && vm.oldCriteria==vm.keyResult.criteria">
+                    <input ng-if="vm.keyResult.format=='percent' && vm.keyResult.criteria=='atMost'" class="form-control input-md" min="0" placeholder="50%"
+                      ng-model="vm.keyResult.currentValue" ui-percentage-mask="0" tabindex="6" ng-disabled="vm.keyResult.inicialValue!=undefined && vm.oldCriteria==vm.keyResult.criteria">
+                    <!--<input ng-if="vm.keyResult.format=='money'" class="form-control" min="0" placeholder="R$ 5.000,00" ng-model="vm.keyResult.currentValue"
+                      ui-money-mask tabindex="6">
+                    <input ng-if="vm.keyResult.format=='unitary'" class="form-control" min="0" placeholder="50" ng-model="vm.keyResult.currentValue"
+                      type="number" step="0.00" tabindex="6">
+                    <input ng-if="vm.keyResult.format=='percent'" class="form-control" min="0" placeholder="50%" ng-model="vm.keyResult.currentValue"
+                      ui-percentage-mask="0" tabindex="6">-->
+                  </div>
+                </div>
+              </div>
+              <div ng-if="!vm.keyResult._id && vm.keyResult.owner && vm.keyResult.criteria && vm.keyResult.format">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="key-result">* Valor inicial</label><i class="fa fa-question-circle help-icon" aria-hidden="true"
+                      uib-tooltip="Informe o valor de partida do resultado chave" tooltip-placement="top"></i>
+                    <input ng-if="vm.keyResult.format=='money' && vm.keyResult.criteria=='atLeast'" class="form-control input-md" min="0" ng-disabled="vm.checkKeyId()"
+                      placeholder="R$ 200,00" ng-model="vm.keyResult.inicialValue" ui-money-mask tabindex="7">
+                    <input ng-if="vm.keyResult.format=='money' && vm.keyResult.criteria=='atMost'" class="form-control input-md" min="0" ng-disabled="vm.checkKeyId()"
+                      placeholder="R$ 5.000,00" ng-model="vm.keyResult.inicialValue" ui-money-mask tabindex="7">
+                    <input ng-if="vm.keyResult.format=='unitary' && vm.keyResult.criteria=='atLeast'" class="form-control input-md" min="0" ng-disabled="vm.checkKeyId()"
+                      placeholder="2" ng-model="vm.keyResult.inicialValue" type="number" step="0.00" tabindex="7">
+                    <input ng-if="vm.keyResult.format=='unitary' && vm.keyResult.criteria=='atMost'" class="form-control input-md" min="0" ng-disabled="vm.checkKeyId()"
+                      placeholder="50" ng-model="vm.keyResult.inicialValue" type="number" step="0.00" tabindex="7">
+                    <input ng-if="vm.keyResult.format=='percent' && vm.keyResult.criteria=='atLeast'" class="form-control input-md" min="0" ng-disabled="vm.checkKeyId()"
+                      placeholder="10%" ng-model="vm.keyResult.inicialValue" ui-percentage-mask="0" tabindex="7">
+                    <input ng-if="vm.keyResult.format=='percent' && vm.keyResult.criteria=='atMost'" class="form-control input-md" min="0" ng-disabled="vm.checkKeyId()"
+                      placeholder="50%" ng-model="vm.keyResult.inicialValue" ui-percentage-mask="0" tabindex="7">
+                  </div>
+                </div>
+                <div class="col-sm-6" ng-if="vm.keyResult.owner && vm.keyResult.criteria && vm.keyResult.format">
+                  <label for="esperado">* Alvo</label><i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Informe o resultado alvo baseando-se no valor inicial que foi informado"
+                    tooltip-placement="top"></i>
+                  <input ng-if="vm.keyResult.format=='money' && vm.keyResult.criteria=='atLeast'" class="form-control" min="0" placeholder="R$ 5.000,00"
+                    ng-model="vm.keyResult.targetValue" ui-money-mask tabindex="8">
+                  <input ng-if="vm.keyResult.format=='money' && vm.keyResult.criteria=='atMost'" class="form-control" min="0" placeholder="R$ 200,00"
+                    ng-model="vm.keyResult.targetValue" ui-money-mask tabindex="8">
+                  <input ng-if="vm.keyResult.format=='unitary' && vm.keyResult.criteria=='atLeast'" class="form-control" min="0" placeholder="50"
+                    ng-model="vm.keyResult.targetValue" type="number" step="0.00" tabindex="8">
+                  <input ng-if="vm.keyResult.format=='unitary' && vm.keyResult.criteria=='atMost'" class="form-control" min="0" placeholder="2"
+                    ng-model="vm.keyResult.targetValue" type="number" step="0.00" tabindex="8">
+                  <input ng-if="vm.keyResult.format=='percent' && vm.keyResult.criteria=='atLeast'" class="form-control" min="0" placeholder="50%"
+                    ng-model="vm.keyResult.targetValue" ui-percentage-mask="0" tabindex="8">
+                  <input ng-if="vm.keyResult.format=='percent' && vm.keyResult.criteria=='atMost'" class="form-control" min="0" placeholder="10%"
+                    ng-model="vm.keyResult.targetValue" ui-percentage-mask="0" tabindex="8">
+                </div>
+              </div>
+              <div ng-if="vm.keyResult._id && vm.keyResult.criteria">
+                <div class="col-sm-6">
+                  <label for="esperado">* Alvo</label><i class="fa fa-question-circle help-icon" aria-hidden="true" uib-tooltip="Informe o resultado alvo baseando-se no valor inicial que foi informado"
+                    tooltip-placement="top"></i>
+                  <input ng-if="vm.keyResult.format=='money' && vm.keyResult.criteria=='atLeast'" class="form-control" min="0" placeholder="R$ 5.000,00"
+                    ng-model="vm.keyResult.targetValue" ui-money-mask tabindex="8">
+                  <input ng-if="vm.keyResult.format=='money' && vm.keyResult.criteria=='atMost'" class="form-control" min="0" placeholder="R$ 200,00"
+                    ng-model="vm.keyResult.targetValue" ui-money-mask tabindex="8">
+                  <input ng-if="vm.keyResult.format=='unitary' && vm.keyResult.criteria=='atLeast'" class="form-control" min="0" placeholder="50"
+                    ng-model="vm.keyResult.targetValue" type="number" step="0.00" tabindex="8">
+                  <input ng-if="vm.keyResult.format=='unitary' && vm.keyResult.criteria=='atMost'" class="form-control" min="0" placeholder="2"
+                    ng-model="vm.keyResult.targetValue" type="number" step="0.00" tabindex="8">
+                  <input ng-if="vm.keyResult.format=='percent' && vm.keyResult.criteria=='atLeast'" class="form-control" min="0" placeholder="50%"
+                    ng-model="vm.keyResult.targetValue" ui-percentage-mask="0" tabindex="8">
+                  <input ng-if="vm.keyResult.format=='percent' && vm.keyResult.criteria=='atMost'" class="form-control" min="0" placeholder="10%"
+                    ng-model="vm.keyResult.targetValue" ui-percentage-mask="0" tabindex="8">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.keyResult.type == 'boolean'">
+          <div class="form-group" ng-if="vm.hierarchy != 'main'">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <select class="form-control" ng-model="vm.keyResult.owner" id="selectMyTeam">
+                  <option ng-repeat="user in vm.users | orderBy: 'firstName'" ng-if="user.firstName" value="{{user._id}}">{{user.firstName}} {{user.lastName}}</option>
+                </select>
+            </div>
+          </div>
+          <div class="box-checkbox" ng-if="!vm.keyResult._id">
+            <div class="complete">
+              <div class="icheckbox_square-green hover" ng-class="{'checked' : vm.keyResult.finished}" ng-click="vm.keyResult.finished = true">
+                <input type="checkbox" class="i-checks check-class-1">
+                <ins class="iCheck-helper check-class-2"></ins>
+              </div>
+              <span>Concluído</span>
+            </div>
+            <div class="incomplete" ng-if="!vm.keyResult._id">
+              <div class="icheckbox_square-green hover" ng-class="{'checked' : !vm.keyResult.finished}" ng-click="vm.keyResult.finished = false">
+                <input type="checkbox" class="i-checks check-class-1">
+                <ins class="iCheck-helpercheck-class-2"></ins>
+              </div>
+              <span>Não concluído</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link" ng-click="vm.closeModal()">Fechar</button>
+        <button type="button" class="btn btn-primary" ng-disabled="vm.verifyRequiredFields()" ng-click="vm.save()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

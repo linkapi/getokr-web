@@ -1,0 +1,140 @@
+/* iKeyResult plugin Square skin, green
+----------------------------------- */
+
+.icheckbox_square-green,
+.iradio_square-green {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url("../images/green.png") no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+.icheckbox_square-green {
+  background-position: 0 0;
+}
+
+.icheckbox_square-green.hover {
+  background-position: -24px 0;
+}
+
+.icheckbox_square-green.not-allowed {
+  cursor: not-allowed;
+}
+
+.icheckbox_square-green.checked {
+  background-position: -48px 0;
+}
+
+.icheckbox_square-green.disabled {
+  background-position: -72px 0;
+  cursor: default;
+}
+
+.icheckbox_square-green.checked.disabled {
+  background-position: -96px 0;
+}
+
+.iradio_square-green {
+  background-position: -120px 0;
+}
+
+.iradio_square-green.hover {
+  background-position: -144px 0;
+}
+
+.iradio_square-green.checked {
+  background-position: -168px 0;
+}
+
+.iradio_square-green.disabled {
+  background-position: -192px 0;
+  cursor: default;
+}
+
+.iradio_square-green.checked.disabled {
+  background-position: -216px 0;
+}
+
+
+/* HiDPI support */
+
+@media (-o-min-device-pixel-ratio: 5/4),
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 120dpi) {
+  .icheckbox_square-green,
+  .iradio_square-green {
+    background-image: url("../images/green@2x.png");
+    -webkit-background-size: 240px 24px;
+    background-size: 240px 24px;
+  }
+}
+
+.box-status-keyresult {
+  width: calc(100% - 500px);
+  display: flex;
+  margin: auto;
+  // padding-top: 30px;
+  .initial-owner-checkIn {
+    margin-left: 0;
+    position: relative;
+    top: -2px;
+  }
+}
+
+.box-targets-keyresult {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: calc(100% - 500px);
+  .box-checkbox {
+    width: 500px;
+  }
+  .form-group {
+    display: inline-block;
+    margin-left: 10px;
+    text-align: left;
+    max-width: 100px;
+    label {
+      width: 100%;
+    }
+    input {
+      width: 100px;
+      display: inline-block;
+      font-size: 11px;
+      height: 25px;
+      &.red {
+        border-color: red !important;
+        background-color: #F0E6E6 !important;
+      }
+    }
+  }
+}
+
+.moods-keyResult {
+  width: 80px !important;
+  display: inline-flex;
+  justify-content: space-between;
+  margin-left: 15px;
+  &.booleankey {
+    margin-left: 100px!important;
+  }
+  a {
+    cursor: default;
+    opacity: 0.3;
+    transition: 0.5 ease;
+    font-size: 16px;
+    margin-right: 5px;
+    &.active {
+      opacity: 1;
+    }
+    &:hover {
+      opacity: .6;
+    }
+  }
+}

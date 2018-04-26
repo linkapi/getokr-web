@@ -1,0 +1,81 @@
+/* Progress bar */
+
+.progress {
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  background-color: $color-background;
+  text-align: center;
+  color: $color-text;
+  border-radius: 3px;
+}
+
+.progress-small,
+.progress-small .progress-bar {
+  height: 10px;
+}
+
+.progress-bar-success {
+  border-right: 4px solid darken($color-green, 5%);
+}
+
+.progress-bar-info {
+  border-right: 4px solid darken($color-blue, 5%);
+}
+
+.progress-bar-warning {
+  border-right: 4px solid darken($color-yellow, 5%);
+}
+
+.progress-bar-danger {
+  border-right: 4px solid darken($color-red, 5%);
+}
+
+.full .progress-bar-success {
+  background-color: $color-green;
+  border-right: 4px solid darken($color-green, 5%);
+}
+
+.full .progress-bar-info {
+  background-color: $color-blue;
+  border-right: 4px solid darken($color-blue, 5%);
+}
+
+.full .progress-bar-warning {
+  background-color: $color-yellow;
+  border-right: 4px solid darken($color-yellow, 5%);
+}
+
+.full .progress-bar-danger {
+  background-color: $color-red;
+  border-right: 4px solid darken($color-red, 5%);
+}
+
+.full .progress-bar {
+  color: #ffffff;
+}
+
+.side-progress {
+  margin: 5px 0 15px;
+  padding: 10px 5px 5px;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(128, 128, 128, 0.4);
+  border-bottom: dotted 1px #d5d5d5;
+  list-style: none;
+  li {
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    opacity: 0.75;
+    color: #34495e;
+    .goal-progress {
+      margin: 5px 0 10px;
+    }
+  }
+}

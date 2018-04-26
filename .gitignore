@@ -1,0 +1,7 @@
+build/
+node_modules/
+npm-debug.log
+.DS_Store
+.jshintrc
+.vscode
+bower_components/

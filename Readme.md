@@ -8,7 +8,7 @@ GetOkr-WEB is the Front-end part of GetOkr, an OKR software used by LinkApi, FCa
 
 ## Requirements
 * GetOkr-API https://github.com/linkapi/getokr-api.git
-* node __6.11.5__
+* node __8.11.1__
 * npm __3.10.10__
 
 ## Installation

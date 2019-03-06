@@ -18,7 +18,7 @@
     "mocha": "*",
     "ng-annotate-loader": "0.1.0",
     "ngtemplate-loader": "1.3.1",
-    "node-sass": "3.4.2",
+    "node-sass": "4.11.0",
     "open-browser-webpack-plugin": "0.0.2",
     "raw-loader": "0.5.1",
     "run-sequence": "1.1.5",

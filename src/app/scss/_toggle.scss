@@ -248,19 +248,19 @@
     .switch-label {
       font-size: 9px;
     }
-  }
-}
-&.mini.yes-no {
-  width: 75px;
-  &.switch-left-right .switch-label:after,
-  &.switch-left-right .switch-label:before {
-    height: 22px;
-    padding: 7px 0 0;
-    width: 69px;
-  }
-  .switch-handle {
-    width: 18px;
-    height: 18px;
-    right: 51px;
+    &.yes-no {
+      width: 75px;
+      &.switch-left-right .switch-label:after,
+      &.switch-left-right .switch-label:before {
+        height: 22px;
+        padding: 7px 0 0;
+        width: 69px;
+      }
+      .switch-handle {
+        width: 18px;
+        height: 18px;
+        right: 51px;
+      }
+    }
   }
 }
